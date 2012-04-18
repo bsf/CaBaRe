@@ -1,3 +1,8 @@
 
 /Output
 /Source/Debug
+*.local
+*.identcache
+*.dsk
+*.tvsconfig
+*.skincfg

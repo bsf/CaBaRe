@@ -25,9 +25,17 @@ package CaBaReModule;
 {$IMPLICITBUILD ON}
 
 requires
-  rtl;
+  rtl,
+  bfwCore,
+  bfwInterfaces,
+  bfwUI,
+  cxPageControldxBarPopupMenuD15;
 
 contains
-  CaBaReModuleInit in 'CaBaReModuleInit.pas';
+  CaBaReModuleInit in 'CaBaReModuleInit.pas',
+  CBRWaiterDeskView in 'CBRWaiterDeskView.pas' {frCBRWaiterDeskView},
+  CBRWaiterDeskPresenter in 'CBRWaiterDeskPresenter.pas',
+  CBROrderDeskView in 'CBROrderDeskView.pas' {frCBROrderDeskView},
+  CBROrderDeskPresenter in 'CBROrderDeskPresenter.pas';
 
 end.

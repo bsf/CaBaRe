@@ -1,5 +1,7 @@
 program CaBaRe;
 
+{$R 'CaBaReRes.res' 'CaBaReRes.rc'}
+
 uses
   Forms,
   midaslib,

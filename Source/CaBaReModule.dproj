@@ -52,7 +52,19 @@
 				<MainSource>MainSource</MainSource>
 			</DelphiCompile>
 			<DCCReference Include="rtl.dcp"/>
+			<DCCReference Include="bfwCore.dcp"/>
+			<DCCReference Include="bfwInterfaces.dcp"/>
+			<DCCReference Include="bfwUI.dcp"/>
+			<DCCReference Include="cxPageControldxBarPopupMenuD15.dcp"/>
 			<DCCReference Include="CaBaReModuleInit.pas"/>
+			<DCCReference Include="CBRWaiterDeskView.pas">
+				<Form>frCBRWaiterDeskView</Form>
+			</DCCReference>
+			<DCCReference Include="CBRWaiterDeskPresenter.pas"/>
+			<DCCReference Include="CBROrderDeskView.pas">
+				<Form>frCBROrderDeskView</Form>
+			</DCCReference>
+			<DCCReference Include="CBROrderDeskPresenter.pas"/>
 			<BuildConfiguration Include="Release">
 				<Key>Cfg_2</Key>
 				<CfgParent>Base</CfgParent>

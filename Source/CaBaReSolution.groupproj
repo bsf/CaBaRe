@@ -3,13 +3,22 @@
 			<ProjectGuid>{05C44FC7-14EA-4183-B9E2-7C6C7823754C}</ProjectGuid>
 		</PropertyGroup>
 		<ItemGroup>
-			<Projects Include="CaBaRe.dproj">
+			<Projects Include="..\External\Boosterfw\Packages\bfwCore.dproj">
 				<Dependencies/>
 			</Projects>
 			<Projects Include="..\External\Boosterfw\Packages\bfwUI.dproj">
 				<Dependencies/>
 			</Projects>
+			<Projects Include="..\External\Boosterfw\Packages\bfwInterfaces.dproj">
+				<Dependencies/>
+			</Projects>
 			<Projects Include="..\External\Boosterfw\Packages\bfwShell.dproj">
+				<Dependencies/>
+			</Projects>
+			<Projects Include="..\External\Boosterfw\Packages\Modules\bfwEntityUIModule.dproj">
+				<Dependencies/>
+			</Projects>
+			<Projects Include="CaBaRe.dproj">
 				<Dependencies/>
 			</Projects>
 			<Projects Include="CaBaReModule.dproj">
@@ -23,14 +32,14 @@
 				<Default.Personality/>
 			</BorlandProject>
 		</ProjectExtensions>
-		<Target Name="CaBaRe">
-			<MSBuild Projects="CaBaRe.dproj"/>
+		<Target Name="bfwCore">
+			<MSBuild Projects="..\External\Boosterfw\Packages\bfwCore.dproj"/>
 		</Target>
-		<Target Name="CaBaRe:Clean">
-			<MSBuild Projects="CaBaRe.dproj" Targets="Clean"/>
+		<Target Name="bfwCore:Clean">
+			<MSBuild Projects="..\External\Boosterfw\Packages\bfwCore.dproj" Targets="Clean"/>
 		</Target>
-		<Target Name="CaBaRe:Make">
-			<MSBuild Projects="CaBaRe.dproj" Targets="Make"/>
+		<Target Name="bfwCore:Make">
+			<MSBuild Projects="..\External\Boosterfw\Packages\bfwCore.dproj" Targets="Make"/>
 		</Target>
 		<Target Name="bfwUI">
 			<MSBuild Projects="..\External\Boosterfw\Packages\bfwUI.dproj"/>
@@ -41,6 +50,15 @@
 		<Target Name="bfwUI:Make">
 			<MSBuild Projects="..\External\Boosterfw\Packages\bfwUI.dproj" Targets="Make"/>
 		</Target>
+		<Target Name="bfwInterfaces">
+			<MSBuild Projects="..\External\Boosterfw\Packages\bfwInterfaces.dproj"/>
+		</Target>
+		<Target Name="bfwInterfaces:Clean">
+			<MSBuild Projects="..\External\Boosterfw\Packages\bfwInterfaces.dproj" Targets="Clean"/>
+		</Target>
+		<Target Name="bfwInterfaces:Make">
+			<MSBuild Projects="..\External\Boosterfw\Packages\bfwInterfaces.dproj" Targets="Make"/>
+		</Target>
 		<Target Name="bfwShell">
 			<MSBuild Projects="..\External\Boosterfw\Packages\bfwShell.dproj"/>
 		</Target>
@@ -49,6 +67,24 @@
 		</Target>
 		<Target Name="bfwShell:Make">
 			<MSBuild Projects="..\External\Boosterfw\Packages\bfwShell.dproj" Targets="Make"/>
+		</Target>
+		<Target Name="bfwEntityUIModule">
+			<MSBuild Projects="..\External\Boosterfw\Packages\Modules\bfwEntityUIModule.dproj"/>
+		</Target>
+		<Target Name="bfwEntityUIModule:Clean">
+			<MSBuild Projects="..\External\Boosterfw\Packages\Modules\bfwEntityUIModule.dproj" Targets="Clean"/>
+		</Target>
+		<Target Name="bfwEntityUIModule:Make">
+			<MSBuild Projects="..\External\Boosterfw\Packages\Modules\bfwEntityUIModule.dproj" Targets="Make"/>
+		</Target>
+		<Target Name="CaBaRe">
+			<MSBuild Projects="CaBaRe.dproj"/>
+		</Target>
+		<Target Name="CaBaRe:Clean">
+			<MSBuild Projects="CaBaRe.dproj" Targets="Clean"/>
+		</Target>
+		<Target Name="CaBaRe:Make">
+			<MSBuild Projects="CaBaRe.dproj" Targets="Make"/>
 		</Target>
 		<Target Name="CaBaReModule">
 			<MSBuild Projects="CaBaReModule.dproj"/>
@@ -60,13 +96,13 @@
 			<MSBuild Projects="CaBaReModule.dproj" Targets="Make"/>
 		</Target>
 		<Target Name="Build">
-			<CallTarget Targets="CaBaRe;bfwUI;bfwShell;CaBaReModule"/>
+			<CallTarget Targets="bfwCore;bfwUI;bfwInterfaces;bfwShell;bfwEntityUIModule;CaBaRe;CaBaReModule"/>
 		</Target>
 		<Target Name="Clean">
-			<CallTarget Targets="CaBaRe:Clean;bfwUI:Clean;bfwShell:Clean;CaBaReModule:Clean"/>
+			<CallTarget Targets="bfwCore:Clean;bfwUI:Clean;bfwInterfaces:Clean;bfwShell:Clean;bfwEntityUIModule:Clean;CaBaRe:Clean;CaBaReModule:Clean"/>
 		</Target>
 		<Target Name="Make">
-			<CallTarget Targets="CaBaRe:Make;bfwUI:Make;bfwShell:Make;CaBaReModule:Make"/>
+			<CallTarget Targets="bfwCore:Make;bfwUI:Make;bfwInterfaces:Make;bfwShell:Make;bfwEntityUIModule:Make;CaBaRe:Make;CaBaReModule:Make"/>
 		</Target>
 		<Import Condition="Exists('$(BDS)\Bin\CodeGear.Group.Targets')" Project="$(BDS)\Bin\CodeGear.Group.Targets"/>
 	</Project>

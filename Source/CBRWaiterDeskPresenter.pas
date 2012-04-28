@@ -1,7 +1,7 @@
 unit CBRWaiterDeskPresenter;
 
 interface
-uses CustomPresenter, db, EntityServiceIntf, CoreClasses;
+uses CustomPresenter, db, EntityServiceIntf, CoreClasses, CBRConst;
 
 const
   ENT = 'CBR_WD_VIEW';
@@ -9,11 +9,12 @@ const
   ENT_TBL = 'CBR_TBL';
   COMMAND_ROOM_PRIOR = '{6C48FDFC-FEEE-47C8-B685-8FE4A3205C2E}';
   COMMAND_ROOM_NEXT = '{AEDD37FF-27CE-422C-A271-7B0030EA9D6B}';
-  COMMAND_TABLE_INFO = '{B8BF467A-774E-41E4-8CC1-DF575BEC6322}';
-  COMMAND_ORDER_NEW = '{E327F129-EDE4-4A8D-B314-5220B4C89ABD}';
+  COMMAND_TABLE_INFO_SHOW = '{B8BF467A-774E-41E4-8CC1-DF575BEC6322}';
+  COMMAND_TABLE_INFO_HIDE = '{BBC9CB7F-CFEF-4E64-9D27-1D1B566EFEBB}';
 
-  ACTIVITY_ORDER_NEW = 'views.CBR_ORDER_DESK.New';
-  ACTIVITY_ORDER_ITEM = 'views.CBR_ORDER_DESK.Item';
+  COMMAND_ORDER_NEW = '{E327F129-EDE4-4A8D-B314-5220B4C89ABD}';
+  COMMAND_ORDER_ITEM = '{AF4A96CE-5A50-4C0D-AAAE-9456F78E2311}';
+
 
 
 type
@@ -21,7 +22,8 @@ type
   ['{030E0E52-EF49-4287-A1E3-F4B81FEF3495}']
     procedure LinkRoomsDataSet(ADataSet: TDataSet);
     procedure LinkTablesDataSet(ADataSet: TDataSet);
-    procedure ShowTableInfo(ATableInfo, AOrders: TDataSet);
+    procedure TableInfoShow(ATableInfo, AOrders: TDataSet);
+    procedure TableInfoHide;
   end;
 
 
@@ -35,8 +37,9 @@ type
     procedure UpdateCommandStatus;
     procedure CmdRoomPrior(Sender: TObject);
     procedure CmdRoomNext(Sender: TObject);
-    procedure CmdTableInfo(Sender: TObject);
+    procedure CmdTableInfoShow(Sender: TObject);
     procedure CmdOrderNew(Sender: TObject);
+    procedure CmdOrderItem(Sender: TObject);
   protected
     procedure OnViewReady; override;
   end;
@@ -44,10 +47,24 @@ implementation
 
 { TCBRWaiterDeskPresenter }
 
+procedure TCBRWaiterDeskPresenter.CmdOrderItem(Sender: TObject);
+var
+  activity: IActivity;
+  cmd: ICommand;
+begin
+  View.TableInfoHide;
+  Sender.GetInterface(ICommand, cmd);
+
+  activity := WorkItem.Activities[ACTIVITY_ORDER_ITEM];
+  activity.Params['ID'] := cmd.Data['ID'];
+  activity.Execute(WorkItem);
+end;
+
 procedure TCBRWaiterDeskPresenter.CmdOrderNew(Sender: TObject);
 var
   activity: IActivity;
 begin
+  View.TableInfoHide;
   activity := WorkItem.Activities[ACTIVITY_ORDER_NEW];
   activity.Params['TBL_ID'] := GetEVTableInfo.DataSet['ID'];
   activity.Execute(WorkItem);
@@ -67,7 +84,8 @@ begin
   UpdateCommandStatus;
 end;
 
-procedure TCBRWaiterDeskPresenter.CmdTableInfo(Sender: TObject);
+
+procedure TCBRWaiterDeskPresenter.CmdTableInfoShow(Sender: TObject);
 var
   cmd: ICommand;
 begin
@@ -76,8 +94,9 @@ begin
 
   GetEVTableInfo.Load([cmd.Data['TBL_ID']]);
 
-  GetEVOrders.Load(true); //[cmd.Data['TBL_ID']]);
-  View.ShowTableInfo(GetEVTableInfo.DataSet, GetEVOrders.DataSet);
+  GetEVOrders.Load([cmd.Data['TBL_ID']]);
+  View.TableInfoShow(GetEVTableInfo.DataSet, GetEVOrders.DataSet);
+
 end;
 
 function TCBRWaiterDeskPresenter.GetEVOrders: IEntityView;
@@ -124,9 +143,10 @@ begin
 
   WorkItem.Commands[COMMAND_ROOM_PRIOR].SetHandler(CmdRoomPrior);
   WorkItem.Commands[COMMAND_ROOM_NEXT].SetHandler(CmdRoomNext);
-  WorkItem.Commands[COMMAND_TABLE_INFO].SetHandler(CmdTableInfo);
+  WorkItem.Commands[COMMAND_TABLE_INFO_SHOW].SetHandler(CmdTableInfoShow);
 
   WorkItem.Commands[COMMAND_ORDER_NEW].SetHandler(CmdOrderNew);
+  WorkItem.Commands[COMMAND_ORDER_ITEM].SetHandler(CmdOrderItem);
 end;
 
 procedure TCBRWaiterDeskPresenter.UpdateCommandStatus;

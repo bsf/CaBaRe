@@ -10,21 +10,15 @@ uses
   cxCustomData, cxFilter, cxData, cxDataStorage, DB, cxDBData, cxGridLevel,
   cxClasses, cxGridCustomView, cxGridCustomTableView, cxGridTableView,
   cxGridBandedTableView, cxGridDBBandedTableView, cxGrid, cxTextEdit, cxMemo,
-  cxLabel, cxDBLabel, cxDBEdit;
+  cxLabel, cxDBLabel, cxDBEdit, cxSplitter;
 
 type
   TfrCBROrderDeskView = class(TfrCustomView, ICBROrderDeskView)
     cxGroupBox1: TcxGroupBox;
     cxGroupBox3: TcxGroupBox;
-    cxGroupBox4: TcxGroupBox;
-    cxButton2: TcxButton;
-    cxButton3: TcxButton;
     grOrder: TcxGrid;
     cxGridLevel1: TcxGridLevel;
     cxGroupBox6: TcxGroupBox;
-    cxGroupBox10: TcxGroupBox;
-    cxButton9: TcxButton;
-    btCancel: TcxButton;
     grOrderView: TcxGridDBBandedTableView;
     grOrderViewColumnID: TcxGridDBBandedColumn;
     grOrderViewColumnRECNO: TcxGridDBBandedColumn;
@@ -37,6 +31,12 @@ type
     dsMenuGrp: TDataSource;
     cxStyleRepository1: TcxStyleRepository;
     cxStyle1: TcxStyle;
+    dsMenu: TDataSource;
+    cxGroupBox2: TcxGroupBox;
+    cxDBLabel1: TcxDBLabel;
+    dsHead: TDataSource;
+    cxStyle2: TcxStyle;
+    cxGroupBox11: TcxGroupBox;
     cxGroupBox5: TcxGroupBox;
     cxGroupBox7: TcxGroupBox;
     cxButton5: TcxButton;
@@ -46,22 +46,36 @@ type
     grMenuGrpViewColumnID: TcxGridDBBandedColumn;
     grMenuGrpViewColumnNAME: TcxGridDBBandedColumn;
     grMenuGrpLevel1: TcxGridLevel;
+    dsItems: TDataSource;
+    cxGroupBox12: TcxGroupBox;
+    btItemPrior: TcxButton;
+    btItemNext: TcxButton;
+    cxDBLabel2: TcxDBLabel;
+    cxGroupBox13: TcxGroupBox;
+    cxDBMemo1: TcxDBMemo;
+    cxGroupBox14: TcxGroupBox;
+    btQtyDec: TcxButton;
+    btQtyInc: TcxButton;
     cxGroupBox8: TcxGroupBox;
     cxGroupBox9: TcxGroupBox;
     cxButton1: TcxButton;
     cxButton8: TcxButton;
     grMenu: TcxGrid;
     grMenuView: TcxGridDBBandedTableView;
-    cxGridLevel2: TcxGridLevel;
-    dsMenu: TDataSource;
     grMenuViewColumnID: TcxGridDBBandedColumn;
     grMenuViewColumnNAME: TcxGridDBBandedColumn;
-    cxGroupBox2: TcxGroupBox;
-    cxDBLabel1: TcxDBLabel;
-    dsHead: TDataSource;
-    dsItems: TDataSource;
-    cxDBTextEdit1: TcxDBTextEdit;
-    cxStyle2: TcxStyle;
+    cxGridLevel2: TcxGridLevel;
+    cxGroupBox4: TcxGroupBox;
+    cxGroupBox15: TcxGroupBox;
+    cxButton6: TcxButton;
+    cxGroupBox16: TcxGroupBox;
+    btClose: TcxButton;
+    cxButton10: TcxButton;
+    cxButton9: TcxButton;
+    cxGroupBox10: TcxGroupBox;
+    btIemCancel: TcxButton;
+    cxButton7: TcxButton;
+    cxDBLabel3: TcxDBLabel;
     procedure grMenuGrpViewCellClick(Sender: TcxCustomGridTableView;
       ACellViewInfo: TcxGridTableDataCellViewInfo; AButton: TMouseButton;
       AShift: TShiftState; var AHandled: Boolean);
@@ -124,7 +138,10 @@ end;
 
 procedure TfrCBROrderDeskView.OnInitialize;
 begin
-  WorkItem.Commands[COMMAND_CLOSE].AddInvoker(btCancel, 'OnClick');
+  WorkItem.Commands[COMMAND_CLOSE].AddInvoker(btClose, 'OnClick');
+
+  WorkItem.Commands[COMMAND_ITEM_PRIOR].AddInvoker(btItemPrior, 'OnClick');
+  WorkItem.Commands[COMMAND_ITEM_NEXT].AddInvoker(btItemNext, 'OnClick');
 end;
 
 end.

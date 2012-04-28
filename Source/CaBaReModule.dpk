@@ -36,6 +36,7 @@ contains
   CBRWaiterDeskView in 'CBRWaiterDeskView.pas' {frCBRWaiterDeskView},
   CBRWaiterDeskPresenter in 'CBRWaiterDeskPresenter.pas',
   CBROrderDeskView in 'CBROrderDeskView.pas' {frCBROrderDeskView},
-  CBROrderDeskPresenter in 'CBROrderDeskPresenter.pas';
+  CBROrderDeskPresenter in 'CBROrderDeskPresenter.pas',
+  CBRConst in 'CBRConst.pas';
 
 end.

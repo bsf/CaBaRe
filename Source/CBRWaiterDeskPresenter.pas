@@ -1,7 +1,8 @@
 unit CBRWaiterDeskPresenter;
 
 interface
-uses CustomPresenter, db, EntityServiceIntf, CoreClasses, CBRConst;
+uses CustomPresenter, db, EntityServiceIntf, CoreClasses, CBRConst,
+  UIClasses, UIStr;
 
 const
   ENT = 'CBR_WD_VIEW';
@@ -18,7 +19,7 @@ const
 
 
 type
-  ICBRWaiterDeskView = interface
+  ICBRWaiterDeskView = interface(ICustomView)
   ['{030E0E52-EF49-4287-A1E3-F4B81FEF3495}']
     procedure LinkRoomsDataSet(ADataSet: TDataSet);
     procedure LinkTablesDataSet(ADataSet: TDataSet);
@@ -55,7 +56,7 @@ begin
   View.TableInfoHide;
   Sender.GetInterface(ICommand, cmd);
 
-  activity := WorkItem.Activities[ACTIVITY_ORDER_ITEM];
+  activity := WorkItem.Activities[ACTIVITY_ORDER_DESK_ITEM];
   activity.Params['ID'] := cmd.Data['ID'];
   activity.Execute(WorkItem);
 end;
@@ -65,7 +66,7 @@ var
   activity: IActivity;
 begin
   View.TableInfoHide;
-  activity := WorkItem.Activities[ACTIVITY_ORDER_NEW];
+  activity := WorkItem.Activities[ACTIVITY_ORDER_DESK_NEW];
   activity.Params['TBL_ID'] := GetEVTableInfo.DataSet['ID'];
   activity.Execute(WorkItem);
 end;
@@ -140,6 +141,10 @@ begin
 
   View.LinkRoomsDataSet(GetEVRooms.DataSet);
   View.LinkTablesDataSet(GetEVTables.DataSet);
+
+  View.CommandBar.
+    AddCommand(COMMAND_CLOSE, GetLocaleString(@COMMAND_CLOSE_CAPTION), COMMAND_CLOSE_SHORTCUT);
+  WorkItem.Commands[COMMAND_CLOSE].SetHandler(CmdClose);
 
   WorkItem.Commands[COMMAND_ROOM_PRIOR].SetHandler(CmdRoomPrior);
   WorkItem.Commands[COMMAND_ROOM_NEXT].SetHandler(CmdRoomNext);

@@ -1,20 +1,36 @@
 inherited frCBRWaiterDeskView: TfrCBRWaiterDeskView
   Caption = 'frCBRWaiterDeskView'
   ClientHeight = 483
-  ClientWidth = 776
-  ExplicitWidth = 782
+  ClientWidth = 735
+  ExplicitWidth = 741
   ExplicitHeight = 511
   PixelsPerInch = 96
   TextHeight = 13
   inherited ViewControl: TcxGroupBox
-    ExplicitWidth = 776
+    ExplicitLeft = 8
+    ExplicitWidth = 1142
     ExplicitHeight = 483
     Height = 483
-    Width = 776
-    object cxGroupBox6: TcxGroupBox
+    Width = 735
+    object pnButtons: TcxGroupBox
       Left = 0
       Top = 0
-      Margins.Left = 0
+      Align = alTop
+      PanelStyle.Active = True
+      PanelStyle.OfficeBackgroundKind = pobkGradient
+      Style.BorderStyle = ebsNone
+      Style.LookAndFeel.Kind = lfOffice11
+      StyleDisabled.LookAndFeel.Kind = lfOffice11
+      StyleFocused.LookAndFeel.Kind = lfOffice11
+      StyleHot.LookAndFeel.Kind = lfOffice11
+      TabOrder = 0
+      ExplicitWidth = 1142
+      Height = 40
+      Width = 735
+    end
+    object cxGroupBox4: TcxGroupBox
+      Left = 0
+      Top = 40
       Align = alClient
       PanelStyle.Active = True
       PanelStyle.OfficeBackgroundKind = pobkStyleColor
@@ -24,14 +40,16 @@ inherited frCBRWaiterDeskView: TfrCBRWaiterDeskView
       StyleDisabled.LookAndFeel.Kind = lfOffice11
       StyleFocused.LookAndFeel.Kind = lfOffice11
       StyleHot.LookAndFeel.Kind = lfOffice11
-      TabOrder = 0
-      Height = 483
-      Width = 776
-      object cxGroupBox2: TcxGroupBox
+      TabOrder = 1
+      ExplicitWidth = 233
+      Height = 443
+      Width = 296
+      object TcxGroupBox
         AlignWithMargins = True
-        Left = 588
-        Top = 3
-        Align = alRight
+        Left = 3
+        Top = 0
+        Margins.Top = 0
+        Align = alTop
         PanelStyle.Active = True
         PanelStyle.OfficeBackgroundKind = pobkStyleColor
         Style.BorderStyle = ebsNone
@@ -41,29 +59,83 @@ inherited frCBRWaiterDeskView: TfrCBRWaiterDeskView
         StyleFocused.LookAndFeel.Kind = lfOffice11
         StyleHot.LookAndFeel.Kind = lfOffice11
         TabOrder = 0
-        Height = 477
-        Width = 185
-        object btClose: TcxButton
+        Visible = False
+        ExplicitWidth = 365
+        Height = 137
+        Width = 290
+        object cxDBLabel2: TcxDBLabel
           Left = 0
-          Top = 412
-          Width = 185
-          Height = 65
-          Align = alBottom
-          Caption = #1047#1072#1082#1088#1099#1090#1100
-          SpeedButtonOptions.CanBeFocused = False
-          TabOrder = 0
-          Font.Charset = DEFAULT_CHARSET
-          Font.Color = clWindowText
-          Font.Height = -21
-          Font.Name = 'MS Sans Serif'
-          Font.Style = []
+          Top = 0
+          Align = alClient
+          DataBinding.DataField = 'NAME'
+          DataBinding.DataSource = dsRomms
           ParentFont = False
+          Properties.Alignment.Horz = taCenter
+          Properties.Alignment.Vert = taVCenter
+          Style.Font.Charset = DEFAULT_CHARSET
+          Style.Font.Color = clWindowText
+          Style.Font.Height = -21
+          Style.Font.Name = 'Tahoma'
+          Style.Font.Style = [fsBold]
+          Style.LookAndFeel.Kind = lfOffice11
+          Style.TransparentBorder = False
+          Style.IsFontAssigned = True
+          StyleDisabled.LookAndFeel.Kind = lfOffice11
+          StyleFocused.LookAndFeel.Kind = lfOffice11
+          StyleHot.LookAndFeel.Kind = lfOffice11
+          Transparent = True
+          ExplicitWidth = 365
+          Height = 66
+          Width = 290
+          AnchorX = 145
+          AnchorY = 33
+        end
+        object cxGroupBox8: TcxGroupBox
+          AlignWithMargins = True
+          Left = 3
+          Top = 69
+          Align = alBottom
+          PanelStyle.Active = True
+          PanelStyle.OfficeBackgroundKind = pobkStyleColor
+          Style.BorderStyle = ebsNone
+          Style.LookAndFeel.Kind = lfOffice11
+          Style.TransparentBorder = False
+          StyleDisabled.LookAndFeel.Kind = lfOffice11
+          StyleFocused.LookAndFeel.Kind = lfOffice11
+          StyleHot.LookAndFeel.Kind = lfOffice11
+          TabOrder = 1
+          ExplicitWidth = 359
+          Height = 65
+          Width = 284
+          object btRoomPrior: TcxButton
+            Left = 0
+            Top = 0
+            Width = 121
+            Height = 65
+            Align = alLeft
+            Caption = '<<'
+            LookAndFeel.Kind = lfOffice11
+            SpeedButtonOptions.CanBeFocused = False
+            TabOrder = 0
+          end
+          object btRoomNext: TcxButton
+            Left = 161
+            Top = 0
+            Width = 123
+            Height = 65
+            Align = alRight
+            Caption = '>>'
+            SpeedButtonOptions.CanBeFocused = False
+            TabOrder = 1
+            ExplicitLeft = 236
+          end
         end
       end
-      object cxGroupBox4: TcxGroupBox
-        Left = 0
-        Top = 0
-        Align = alLeft
+      object cxGroupBox9: TcxGroupBox
+        AlignWithMargins = True
+        Left = 3
+        Top = 143
+        Align = alClient
         PanelStyle.Active = True
         PanelStyle.OfficeBackgroundKind = pobkStyleColor
         Style.BorderStyle = ebsNone
@@ -73,233 +145,98 @@ inherited frCBRWaiterDeskView: TfrCBRWaiterDeskView
         StyleFocused.LookAndFeel.Kind = lfOffice11
         StyleHot.LookAndFeel.Kind = lfOffice11
         TabOrder = 1
-        Height = 483
-        Width = 262
-        object TcxGroupBox
+        ExplicitWidth = 365
+        Height = 297
+        Width = 290
+        object grTables: TcxGrid
           AlignWithMargins = True
           Left = 3
-          Top = 0
-          Margins.Top = 0
-          Align = alTop
-          PanelStyle.Active = True
-          PanelStyle.OfficeBackgroundKind = pobkStyleColor
-          Style.BorderStyle = ebsNone
-          Style.LookAndFeel.Kind = lfOffice11
-          Style.TransparentBorder = False
-          StyleDisabled.LookAndFeel.Kind = lfOffice11
-          StyleFocused.LookAndFeel.Kind = lfOffice11
-          StyleHot.LookAndFeel.Kind = lfOffice11
-          TabOrder = 0
-          Visible = False
-          Height = 137
-          Width = 256
-          object cxDBLabel2: TcxDBLabel
-            Left = 0
-            Top = 0
-            Align = alClient
-            DataBinding.DataField = 'NAME'
-            DataBinding.DataSource = dsRomms
-            ParentFont = False
-            Properties.Alignment.Horz = taCenter
-            Properties.Alignment.Vert = taVCenter
-            Style.Font.Charset = DEFAULT_CHARSET
-            Style.Font.Color = clWindowText
-            Style.Font.Height = -21
-            Style.Font.Name = 'Tahoma'
-            Style.Font.Style = [fsBold]
-            Style.LookAndFeel.Kind = lfOffice11
-            Style.TransparentBorder = False
-            Style.IsFontAssigned = True
-            StyleDisabled.LookAndFeel.Kind = lfOffice11
-            StyleFocused.LookAndFeel.Kind = lfOffice11
-            StyleHot.LookAndFeel.Kind = lfOffice11
-            Transparent = True
-            Height = 66
-            Width = 256
-            AnchorX = 128
-            AnchorY = 33
-          end
-          object cxGroupBox8: TcxGroupBox
-            AlignWithMargins = True
-            Left = 3
-            Top = 69
-            Align = alBottom
-            PanelStyle.Active = True
-            PanelStyle.OfficeBackgroundKind = pobkStyleColor
-            Style.BorderStyle = ebsNone
-            Style.LookAndFeel.Kind = lfOffice11
-            Style.TransparentBorder = False
-            StyleDisabled.LookAndFeel.Kind = lfOffice11
-            StyleFocused.LookAndFeel.Kind = lfOffice11
-            StyleHot.LookAndFeel.Kind = lfOffice11
-            TabOrder = 1
-            Height = 65
-            Width = 250
-            object btRoomPrior: TcxButton
-              Left = 0
-              Top = 0
-              Width = 121
-              Height = 65
-              Align = alLeft
-              Caption = '<<'
-              LookAndFeel.Kind = lfOffice11
-              SpeedButtonOptions.CanBeFocused = False
-              TabOrder = 0
-            end
-            object btRoomNext: TcxButton
-              Left = 127
-              Top = 0
-              Width = 123
-              Height = 65
-              Align = alRight
-              Caption = '>>'
-              SpeedButtonOptions.CanBeFocused = False
-              TabOrder = 1
-            end
-          end
-        end
-        object cxGroupBox9: TcxGroupBox
-          AlignWithMargins = True
-          Left = 3
-          Top = 143
+          Top = 3
+          Width = 284
+          Height = 291
           Align = alClient
-          PanelStyle.Active = True
-          PanelStyle.OfficeBackgroundKind = pobkStyleColor
-          Style.BorderStyle = ebsNone
-          Style.LookAndFeel.Kind = lfOffice11
-          Style.TransparentBorder = False
-          StyleDisabled.LookAndFeel.Kind = lfOffice11
-          StyleFocused.LookAndFeel.Kind = lfOffice11
-          StyleHot.LookAndFeel.Kind = lfOffice11
-          TabOrder = 1
-          ExplicitTop = 140
-          ExplicitHeight = 340
-          Height = 337
-          Width = 256
-          object cxGroupBox10: TcxGroupBox
-            AlignWithMargins = True
-            Left = 3
-            Top = 269
-            Align = alBottom
-            PanelStyle.Active = True
-            PanelStyle.OfficeBackgroundKind = pobkStyleColor
-            Style.BorderStyle = ebsNone
-            Style.LookAndFeel.Kind = lfOffice11
-            Style.TransparentBorder = False
-            StyleDisabled.LookAndFeel.Kind = lfOffice11
-            StyleFocused.LookAndFeel.Kind = lfOffice11
-            StyleHot.LookAndFeel.Kind = lfOffice11
-            TabOrder = 0
-            Visible = False
-            ExplicitTop = 272
-            Height = 65
-            Width = 250
-            object cxButton7: TcxButton
-              Left = 0
-              Top = 0
-              Width = 121
-              Height = 65
-              Align = alLeft
-              Caption = '<<'
-              LookAndFeel.Kind = lfOffice11
-              SpeedButtonOptions.CanBeFocused = False
-              TabOrder = 0
+          BorderStyle = cxcbsNone
+          TabOrder = 0
+          LookAndFeel.Kind = lfOffice11
+          ExplicitWidth = 359
+          object grTablesView: TcxGridDBCardView
+            OnCellClick = grTablesViewCellClick
+            DataController.DataSource = dsTables
+            DataController.KeyFieldNames = 'ID'
+            DataController.Summary.DefaultGroupSummaryItems = <>
+            DataController.Summary.FooterSummaryItems = <>
+            DataController.Summary.SummaryGroups = <>
+            OptionsData.Deleting = False
+            OptionsData.Editing = False
+            OptionsData.Inserting = False
+            OptionsSelection.HideSelection = True
+            OptionsSelection.InvertSelect = False
+            OptionsSelection.CardBorderSelection = False
+            OptionsView.FocusRect = False
+            OptionsView.CaptionSeparator = #0
+            OptionsView.CardAutoWidth = True
+            OptionsView.CardBorderWidth = 5
+            OptionsView.CardIndent = 7
+            OptionsView.CellAutoHeight = True
+            OptionsView.LayerSeparatorWidth = 1
+            OptionsView.RowCaptionAutoHeight = True
+            object grTablesViewRowID: TcxGridDBCardViewRow
+              DataBinding.FieldName = 'ID'
+              Visible = False
+              CaptionAlignmentHorz = taRightJustify
+              Kind = rkCaption
+              Options.Focusing = False
+              Options.ShowCaption = False
+              Position.BeginsLayer = True
             end
-            object cxButton8: TcxButton
-              Left = 127
-              Top = 0
-              Width = 123
-              Height = 65
-              Align = alRight
-              Caption = '>>'
-              SpeedButtonOptions.CanBeFocused = False
-              TabOrder = 1
+            object grTablesViewRowROOM: TcxGridDBCardViewRow
+              DataBinding.FieldName = 'ROOM'
+              Kind = rkCaption
+              Options.Focusing = False
+              Options.ShowCaption = False
+              Position.BeginsLayer = True
+            end
+            object grTablesViewRowNAME: TcxGridDBCardViewRow
+              DataBinding.FieldName = 'NAME'
+              CaptionAlignmentHorz = taCenter
+              CaptionAlignmentVert = vaCenter
+              Kind = rkCaption
+              Options.Focusing = False
+              Options.ShowCaption = False
+              Position.BeginsLayer = False
+              Position.LineCount = 2
+              Styles.Content = cxStyle1
             end
           end
-          object grTables: TcxGrid
-            AlignWithMargins = True
-            Left = 3
-            Top = 0
-            Width = 250
-            Height = 263
-            Margins.Top = 0
-            Align = alClient
-            BorderStyle = cxcbsNone
-            TabOrder = 1
-            LookAndFeel.Kind = lfUltraFlat
-            ExplicitHeight = 266
-            object grTablesView: TcxGridDBBandedTableView
-              OnCellClick = grTablesViewCellClick
-              DataController.DataSource = dsTables
-              DataController.DetailKeyFieldNames = 'ID'
-              DataController.Summary.DefaultGroupSummaryItems = <>
-              DataController.Summary.FooterSummaryItems = <>
-              DataController.Summary.SummaryGroups = <>
-              OptionsData.Deleting = False
-              OptionsData.Editing = False
-              OptionsData.Inserting = False
-              OptionsSelection.InvertSelect = False
-              OptionsView.FocusRect = False
-              OptionsView.ScrollBars = ssNone
-              OptionsView.ColumnAutoWidth = True
-              OptionsView.GridLines = glNone
-              OptionsView.GroupByBox = False
-              OptionsView.Header = False
-              OptionsView.RowSeparatorWidth = 3
-              OptionsView.BandHeaders = False
-              Bands = <
-                item
-                end>
-              object grTablesViewColumnID: TcxGridDBBandedColumn
-                DataBinding.FieldName = 'ID'
-                Visible = False
-                VisibleForCustomization = False
-                Position.BandIndex = 0
-                Position.ColIndex = 1
-                Position.RowIndex = 0
-              end
-              object grTablesViewColumnNAME: TcxGridDBBandedColumn
-                DataBinding.FieldName = 'NAME'
-                PropertiesClassName = 'TcxTextEditProperties'
-                Properties.Alignment.Horz = taCenter
-                Properties.Alignment.Vert = taVCenter
-                Options.Focusing = False
-                Styles.Content = cxStyle1
-                Position.BandIndex = 0
-                Position.ColIndex = 0
-                Position.RowIndex = 0
-              end
-              object grTablesViewColumnSTATUSFLAG: TcxGridDBBandedColumn
-                DataBinding.FieldName = 'STATUSFLAG'
-                Options.Focusing = False
-                Width = 82
-                Position.BandIndex = 0
-                Position.ColIndex = 0
-                Position.RowIndex = 1
-              end
-              object grTablesViewColumnSTATUS: TcxGridDBBandedColumn
-                DataBinding.FieldName = 'STATUS'
-                PropertiesClassName = 'TcxTextEditProperties'
-                Properties.Alignment.Horz = taRightJustify
-                Properties.Alignment.Vert = taVCenter
-                Options.Focusing = False
-                Width = 168
-                Position.BandIndex = 0
-                Position.ColIndex = 1
-                Position.RowIndex = 1
-              end
-            end
-            object cxGridLevel1: TcxGridLevel
-              GridView = grTablesView
-            end
+          object cxGridLevel2: TcxGridLevel
+            GridView = grTablesView
           end
         end
       end
-      object pnTableInfo: TcxGroupBox
-        Left = 262
+    end
+    object pnTableInfo: TcxGroupBox
+      Left = 296
+      Top = 40
+      Margins.Left = 0
+      Align = alRight
+      PanelStyle.Active = True
+      PanelStyle.OfficeBackgroundKind = pobkStyleColor
+      Style.BorderStyle = ebsNone
+      Style.LookAndFeel.Kind = lfOffice11
+      Style.TransparentBorder = False
+      StyleDisabled.LookAndFeel.Kind = lfOffice11
+      StyleFocused.LookAndFeel.Kind = lfOffice11
+      StyleHot.LookAndFeel.Kind = lfOffice11
+      TabOrder = 2
+      Visible = False
+      Height = 443
+      Width = 439
+      object TcxGroupBox
+        AlignWithMargins = True
+        Left = 3
         Top = 0
-        Margins.Left = 0
-        Align = alLeft
+        Margins.Top = 0
+        Align = alTop
         PanelStyle.Active = True
         PanelStyle.OfficeBackgroundKind = pobkStyleColor
         Style.BorderStyle = ebsNone
@@ -308,16 +245,59 @@ inherited frCBRWaiterDeskView: TfrCBRWaiterDeskView
         StyleDisabled.LookAndFeel.Kind = lfOffice11
         StyleFocused.LookAndFeel.Kind = lfOffice11
         StyleHot.LookAndFeel.Kind = lfOffice11
-        TabOrder = 2
-        Visible = False
-        Height = 483
-        Width = 262
-        object TcxGroupBox
+        TabOrder = 0
+        ExplicitTop = 24
+        Height = 137
+        Width = 433
+        object cxDBLabel1: TcxDBLabel
+          Left = 0
+          Top = 21
+          Align = alTop
+          DataBinding.DataField = 'NAME'
+          DataBinding.DataSource = dsTableInfo
+          ParentFont = False
+          Properties.Alignment.Horz = taCenter
+          Properties.Alignment.Vert = taVCenter
+          Properties.LineOptions.Alignment = cxllaBottom
+          Properties.LineOptions.Visible = True
+          Style.Font.Charset = DEFAULT_CHARSET
+          Style.Font.Color = clWindowText
+          Style.Font.Height = -21
+          Style.Font.Name = 'Tahoma'
+          Style.Font.Style = [fsBold]
+          Style.LookAndFeel.Kind = lfOffice11
+          Style.TransparentBorder = False
+          Style.IsFontAssigned = True
+          StyleDisabled.LookAndFeel.Kind = lfOffice11
+          StyleFocused.LookAndFeel.Kind = lfOffice11
+          StyleHot.LookAndFeel.Kind = lfOffice11
+          Transparent = True
+          ExplicitTop = 16
+          Height = 33
+          Width = 433
+          AnchorX = 217
+          AnchorY = 38
+        end
+        object cxDBLabel3: TcxDBLabel
+          Left = 0
+          Top = 0
+          Align = alTop
+          DataBinding.DataField = 'ROOM'
+          DataBinding.DataSource = dsTableInfo
+          Style.LookAndFeel.Kind = lfOffice11
+          StyleDisabled.LookAndFeel.Kind = lfOffice11
+          StyleFocused.LookAndFeel.Kind = lfOffice11
+          StyleHot.LookAndFeel.Kind = lfOffice11
+          Transparent = True
+          ExplicitWidth = 256
+          Height = 21
+          Width = 433
+        end
+        object cxGroupBox3: TcxGroupBox
           AlignWithMargins = True
           Left = 3
-          Top = 0
-          Margins.Top = 0
-          Align = alTop
+          Top = 69
+          Align = alBottom
           PanelStyle.Active = True
           PanelStyle.OfficeBackgroundKind = pobkStyleColor
           Style.BorderStyle = ebsNone
@@ -326,198 +306,145 @@ inherited frCBRWaiterDeskView: TfrCBRWaiterDeskView
           StyleDisabled.LookAndFeel.Kind = lfOffice11
           StyleFocused.LookAndFeel.Kind = lfOffice11
           StyleHot.LookAndFeel.Kind = lfOffice11
-          TabOrder = 0
-          Height = 137
-          Width = 256
-          object cxDBLabel1: TcxDBLabel
+          TabOrder = 2
+          ExplicitWidth = 250
+          Height = 65
+          Width = 427
+          object cxButton2: TcxButton
             Left = 0
             Top = 0
-            Align = alTop
-            DataBinding.DataField = 'NAME'
-            DataBinding.DataSource = dsTableInfo
-            ParentFont = False
-            Properties.Alignment.Horz = taLeftJustify
-            Properties.Alignment.Vert = taVCenter
-            Properties.LineOptions.Alignment = cxllaBottom
-            Properties.LineOptions.Visible = True
-            Style.Font.Charset = DEFAULT_CHARSET
-            Style.Font.Color = clWindowText
-            Style.Font.Height = -21
-            Style.Font.Name = 'Tahoma'
-            Style.Font.Style = [fsBold]
-            Style.LookAndFeel.Kind = lfOffice11
-            Style.TransparentBorder = False
-            Style.IsFontAssigned = True
-            StyleDisabled.LookAndFeel.Kind = lfOffice11
-            StyleFocused.LookAndFeel.Kind = lfOffice11
-            StyleHot.LookAndFeel.Kind = lfOffice11
-            Transparent = True
-            Height = 33
-            Width = 256
-            AnchorY = 17
-          end
-          object cxGroupBox3: TcxGroupBox
-            AlignWithMargins = True
-            Left = 3
-            Top = 69
-            Align = alBottom
-            PanelStyle.Active = True
-            PanelStyle.OfficeBackgroundKind = pobkStyleColor
-            Style.BorderStyle = ebsNone
-            Style.LookAndFeel.Kind = lfOffice11
-            Style.TransparentBorder = False
-            StyleDisabled.LookAndFeel.Kind = lfOffice11
-            StyleFocused.LookAndFeel.Kind = lfOffice11
-            StyleHot.LookAndFeel.Kind = lfOffice11
-            TabOrder = 1
-            Height = 65
-            Width = 250
-            object cxButton2: TcxButton
-              Left = 0
-              Top = 0
-              Width = 121
-              Height = 65
-              Align = alLeft
-              Caption = #1057#1090#1072#1090#1091#1089
-              LookAndFeel.Kind = lfOffice11
-              SpeedButtonOptions.CanBeFocused = False
-              TabOrder = 0
-              Visible = False
-              Font.Charset = DEFAULT_CHARSET
-              Font.Color = clWindowText
-              Font.Height = -16
-              Font.Name = 'MS Sans Serif'
-              Font.Style = []
-              ParentFont = False
-            end
-            object btOrderNew: TcxButton
-              Left = 127
-              Top = 0
-              Width = 123
-              Height = 65
-              Align = alRight
-              Caption = #1053#1086#1074#1099#1081' '#1079#1072#1082#1072#1079
-              SpeedButtonOptions.CanBeFocused = False
-              TabOrder = 1
-              Font.Charset = DEFAULT_CHARSET
-              Font.Color = clWindowText
-              Font.Height = -16
-              Font.Name = 'MS Sans Serif'
-              Font.Style = [fsBold]
-              ParentFont = False
-            end
-          end
-          object cxDBLabel3: TcxDBLabel
-            Left = 3
-            Top = 39
-            DataBinding.DataField = 'STATUS'
-            DataBinding.DataSource = dsTableInfo
-            Height = 21
             Width = 121
+            Height = 65
+            Align = alLeft
+            Caption = #1057#1090#1072#1090#1091#1089
+            LookAndFeel.Kind = lfOffice11
+            SpeedButtonOptions.CanBeFocused = False
+            TabOrder = 0
+            Visible = False
+            Font.Charset = DEFAULT_CHARSET
+            Font.Color = clWindowText
+            Font.Height = -16
+            Font.Name = 'MS Sans Serif'
+            Font.Style = []
+            ParentFont = False
+            ExplicitLeft = 129
+          end
+          object btOrderNew: TcxButton
+            Left = 304
+            Top = 0
+            Width = 123
+            Height = 65
+            Align = alRight
+            Caption = #1053#1086#1074#1099#1081' '#1079#1072#1082#1072#1079
+            SpeedButtonOptions.CanBeFocused = False
+            TabOrder = 1
+            Font.Charset = DEFAULT_CHARSET
+            Font.Color = clWindowText
+            Font.Height = -16
+            Font.Name = 'MS Sans Serif'
+            Font.Style = [fsBold]
+            ParentFont = False
+            ExplicitLeft = 0
           end
         end
-        object cxGroupBox5: TcxGroupBox
+      end
+      object cxGroupBox5: TcxGroupBox
+        AlignWithMargins = True
+        Left = 3
+        Top = 143
+        Align = alClient
+        PanelStyle.Active = True
+        PanelStyle.OfficeBackgroundKind = pobkStyleColor
+        Style.BorderStyle = ebsNone
+        Style.LookAndFeel.Kind = lfOffice11
+        Style.TransparentBorder = False
+        StyleDisabled.LookAndFeel.Kind = lfOffice11
+        StyleFocused.LookAndFeel.Kind = lfOffice11
+        StyleHot.LookAndFeel.Kind = lfOffice11
+        TabOrder = 1
+        ExplicitTop = 77
+        ExplicitWidth = 256
+        ExplicitHeight = 363
+        Height = 297
+        Width = 433
+        object grOrders: TcxGrid
           AlignWithMargins = True
           Left = 3
-          Top = 143
+          Top = 3
+          Width = 427
+          Height = 291
           Align = alClient
-          PanelStyle.Active = True
-          PanelStyle.OfficeBackgroundKind = pobkStyleColor
-          Style.BorderStyle = ebsNone
-          Style.LookAndFeel.Kind = lfOffice11
-          Style.TransparentBorder = False
-          StyleDisabled.LookAndFeel.Kind = lfOffice11
-          StyleFocused.LookAndFeel.Kind = lfOffice11
-          StyleHot.LookAndFeel.Kind = lfOffice11
-          TabOrder = 1
-          ExplicitTop = 140
-          ExplicitHeight = 340
-          Height = 337
-          Width = 256
-          object grOrders: TcxGrid
-            AlignWithMargins = True
-            Left = 3
-            Top = 0
-            Width = 250
-            Height = 334
-            Margins.Top = 0
-            Align = alClient
-            BorderStyle = cxcbsNone
-            TabOrder = 0
-            LookAndFeel.Kind = lfOffice11
-            ExplicitHeight = 266
-            object grOrdersView: TcxGridDBBandedTableView
-              OnCellClick = grOrdersViewCellClick
-              DataController.DataSource = dsOrders
-              DataController.KeyFieldNames = 'ID'
-              DataController.Summary.DefaultGroupSummaryItems = <>
-              DataController.Summary.FooterSummaryItems = <>
-              DataController.Summary.SummaryGroups = <>
-              OptionsData.Deleting = False
-              OptionsData.Editing = False
-              OptionsData.Inserting = False
-              OptionsSelection.InvertSelect = False
-              OptionsView.FocusRect = False
-              OptionsView.ScrollBars = ssVertical
-              OptionsView.ColumnAutoWidth = True
-              OptionsView.GridLines = glNone
-              OptionsView.GroupByBox = False
-              OptionsView.Header = False
-              OptionsView.RowSeparatorWidth = 3
-              OptionsView.BandHeaders = False
-              Bands = <
-                item
-                end>
-              object grOrdersViewColumnID: TcxGridDBBandedColumn
-                DataBinding.FieldName = 'ID'
-                Visible = False
-                Options.Focusing = False
-                VisibleForCustomization = False
-                Position.BandIndex = 0
-                Position.ColIndex = 0
-                Position.RowIndex = 0
-              end
-              object grOrdersViewColumnIDAT: TcxGridDBBandedColumn
-                DataBinding.FieldName = 'IDAT'
-                PropertiesClassName = 'TcxLabelProperties'
-                Properties.Alignment.Horz = taRightJustify
-                Options.Focusing = False
-                Position.BandIndex = 0
-                Position.ColIndex = 2
-                Position.RowIndex = 0
-              end
-              object grOrdersViewColumnSUMM: TcxGridDBBandedColumn
-                DataBinding.FieldName = 'SUMM'
-                PropertiesClassName = 'TcxLabelProperties'
-                Properties.Alignment.Horz = taRightJustify
-                Properties.Alignment.Vert = taVCenter
-                Options.Focusing = False
-                Styles.Content = cxStyle1
-                Position.BandIndex = 0
-                Position.ColIndex = 0
-                Position.RowIndex = 1
-              end
-              object grOrdersViewColumnSTATE: TcxGridDBBandedColumn
-                DataBinding.FieldName = 'STATE'
-                PropertiesClassName = 'TcxLabelProperties'
-                Properties.Alignment.Horz = taLeftJustify
-                Options.Focusing = False
-                Position.BandIndex = 0
-                Position.ColIndex = 1
-                Position.RowIndex = 0
-              end
+          BorderStyle = cxcbsNone
+          TabOrder = 0
+          LookAndFeel.Kind = lfOffice11
+          ExplicitWidth = 250
+          ExplicitHeight = 357
+          object grOrdersView: TcxGridDBCardView
+            OnCellClick = grOrdersViewCellClick
+            DataController.DataSource = dsOrders
+            DataController.KeyFieldNames = 'ID'
+            DataController.Summary.DefaultGroupSummaryItems = <>
+            DataController.Summary.FooterSummaryItems = <>
+            DataController.Summary.SummaryGroups = <>
+            OptionsData.Deleting = False
+            OptionsData.Editing = False
+            OptionsData.Inserting = False
+            OptionsSelection.HideSelection = True
+            OptionsSelection.InvertSelect = False
+            OptionsSelection.CardBorderSelection = False
+            OptionsView.FocusRect = False
+            OptionsView.CaptionSeparator = #0
+            OptionsView.CardAutoWidth = True
+            OptionsView.CardBorderWidth = 5
+            OptionsView.CardIndent = 7
+            OptionsView.CellAutoHeight = True
+            OptionsView.LayerSeparatorWidth = 1
+            OptionsView.RowCaptionAutoHeight = True
+            object cxGridDBCardViewRowID: TcxGridDBCardViewRow
+              DataBinding.FieldName = 'ID'
+              Visible = False
+              CaptionAlignmentHorz = taRightJustify
+              Kind = rkCaption
+              Options.Focusing = False
+              Options.ShowCaption = False
+              Position.BeginsLayer = True
             end
-            object grOrdersLevel1: TcxGridLevel
-              GridView = grOrdersView
+            object cxGridDBCardViewRowSTATE: TcxGridDBCardViewRow
+              DataBinding.FieldName = 'STATE'
+              Kind = rkCaption
+              Options.Focusing = False
+              Options.ShowCaption = False
+              Position.BeginsLayer = True
             end
+            object grOrdersViewRowTIME: TcxGridDBCardViewRow
+              DataBinding.FieldName = 'LAST_ACT_TIME'
+              CaptionAlignmentHorz = taRightJustify
+              Kind = rkCaption
+              Options.Focusing = False
+              Options.ShowCaption = False
+              Position.BeginsLayer = False
+            end
+            object cxGridDBCardViewRowSUMM: TcxGridDBCardViewRow
+              DataBinding.FieldName = 'SUMM'
+              CaptionAlignmentHorz = taRightJustify
+              CaptionAlignmentVert = vaCenter
+              Kind = rkCaption
+              Options.Focusing = False
+              Options.ShowCaption = False
+              Position.BeginsLayer = True
+              Styles.Content = cxStyle2
+            end
+          end
+          object cxGridLevel1: TcxGridLevel
+            GridView = grOrdersView
           end
         end
       end
     end
   end
   inherited ActionList: TActionList
-    Left = 670
-    Top = 38
+    Left = 150
+    Top = 294
   end
   object dsRomms: TDataSource
     Left = 40
@@ -528,8 +455,8 @@ inherited frCBRWaiterDeskView: TfrCBRWaiterDeskView
     Top = 192
   end
   object cxStyleRepository1: TcxStyleRepository
-    Left = 672
-    Top = 112
+    Left = 40
+    Top = 296
     PixelsPerInch = 96
     object cxStyle1: TcxStyle
       AssignedValues = [svFont]
@@ -539,13 +466,21 @@ inherited frCBRWaiterDeskView: TfrCBRWaiterDeskView
       Font.Name = 'Tahoma'
       Font.Style = [fsBold]
     end
+    object cxStyle2: TcxStyle
+      AssignedValues = [svFont]
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clWindowText
+      Font.Height = -21
+      Font.Name = 'Tahoma'
+      Font.Style = [fsBold]
+    end
   end
   object dsTableInfo: TDataSource
-    Left = 320
-    Top = 208
+    Left = 328
+    Top = 232
   end
   object dsOrders: TDataSource
-    Left = 392
-    Top = 208
+    Left = 408
+    Top = 240
   end
 end

@@ -66,6 +66,7 @@
 			</DCCReference>
 			<DCCReference Include="CBROrderDeskPresenter.pas"/>
 			<DCCReference Include="CBRConst.pas"/>
+			<DCCReference Include="CBRController.pas"/>
 			<BuildConfiguration Include="Release">
 				<Key>Cfg_2</Key>
 				<CfgParent>Base</CfgParent>

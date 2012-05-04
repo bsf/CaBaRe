@@ -11,49 +11,45 @@ uses
   cxClasses, cxGridCustomView, cxGridCustomTableView, cxGridTableView,
   cxGridDBTableView, cxGrid, cxDBLabel, UIClasses, cxNavigator, cxDBNavigator,
   CBRWaiterDeskPresenter, cxGridBandedTableView, cxGridDBBandedTableView,
-  cxTextEdit, cxScrollBar;
+  cxTextEdit, cxScrollBar, cxGridCardView, cxGridDBCardView,
+  cxGridCustomLayoutView, ICommandBarImpl;
 
 type
   TfrCBRWaiterDeskView = class(TfrCustomView, ICBRWaiterDeskView)
     dsRomms: TDataSource;
     dsTables: TDataSource;
-    cxGroupBox6: TcxGroupBox;
-    cxGroupBox2: TcxGroupBox;
-    btClose: TcxButton;
+    cxStyleRepository1: TcxStyleRepository;
+    cxStyle1: TcxStyle;
+    dsTableInfo: TDataSource;
+    dsOrders: TDataSource;
+    pnButtons: TcxGroupBox;
     cxGroupBox4: TcxGroupBox;
     cxDBLabel2: TcxDBLabel;
     cxGroupBox8: TcxGroupBox;
     btRoomPrior: TcxButton;
     btRoomNext: TcxButton;
     cxGroupBox9: TcxGroupBox;
-    cxGroupBox10: TcxGroupBox;
-    cxButton7: TcxButton;
-    cxButton8: TcxButton;
     grTables: TcxGrid;
-    cxGridLevel1: TcxGridLevel;
+    grTablesView: TcxGridDBCardView;
+    grTablesViewRowID: TcxGridDBCardViewRow;
+    grTablesViewRowROOM: TcxGridDBCardViewRow;
+    grTablesViewRowNAME: TcxGridDBCardViewRow;
+    cxGridLevel2: TcxGridLevel;
     pnTableInfo: TcxGroupBox;
     cxDBLabel1: TcxDBLabel;
+    cxDBLabel3: TcxDBLabel;
+    cxGroupBox5: TcxGroupBox;
+    grOrders: TcxGrid;
+    grOrdersView: TcxGridDBCardView;
+    cxGridDBCardViewRowID: TcxGridDBCardViewRow;
+    cxGridDBCardViewRowSTATE: TcxGridDBCardViewRow;
+    cxGridDBCardViewRowSUMM: TcxGridDBCardViewRow;
+    cxGridLevel1: TcxGridLevel;
     cxGroupBox3: TcxGroupBox;
     cxButton2: TcxButton;
     btOrderNew: TcxButton;
-    cxGroupBox5: TcxGroupBox;
-    grOrders: TcxGrid;
-    grOrdersLevel1: TcxGridLevel;
-    grTablesView: TcxGridDBBandedTableView;
-    grTablesViewColumnNAME: TcxGridDBBandedColumn;
-    grTablesViewColumnSTATUS: TcxGridDBBandedColumn;
-    grTablesViewColumnSTATUSFLAG: TcxGridDBBandedColumn;
-    cxStyleRepository1: TcxStyleRepository;
-    cxStyle1: TcxStyle;
-    grTablesViewColumnID: TcxGridDBBandedColumn;
-    dsTableInfo: TDataSource;
-    grOrdersView: TcxGridDBBandedTableView;
-    dsOrders: TDataSource;
-    cxDBLabel3: TcxDBLabel;
-    grOrdersViewColumnID: TcxGridDBBandedColumn;
-    grOrdersViewColumnIDAT: TcxGridDBBandedColumn;
-    grOrdersViewColumnSUMM: TcxGridDBBandedColumn;
-    grOrdersViewColumnSTATE: TcxGridDBBandedColumn;
+    grOrdersViewRowTIME: TcxGridDBCardViewRow;
+    cxStyle2: TcxStyle;
     procedure grTablesViewCellClick(Sender: TcxCustomGridTableView;
       ACellViewInfo: TcxGridTableDataCellViewInfo; AButton: TMouseButton;
       AShift: TShiftState; var AHandled: Boolean);
@@ -61,11 +57,17 @@ type
       ACellViewInfo: TcxGridTableDataCellViewInfo; AButton: TMouseButton;
       AShift: TShiftState; var AHandled: Boolean);
   private
+    FICommandBarImpl: TICommandBarImpl;
+
+  protected
+    //ICBRWaiterDeskView
     procedure LinkRoomsDataSet(ADataSet: TDataSet);
     procedure LinkTablesDataSet(ADataSet: TDataSet);
     procedure TableInfoShow(ATableInfo, AOrders: TDataSet);
     procedure TableInfoHide;
+
   protected
+    function CommandBar: ICommandBar; override;
     procedure OnInitialize; override;
   end;
 
@@ -77,6 +79,11 @@ implementation
 {$R *.dfm}
 
 { TfrCBRWaiterDeskView }
+
+function TfrCBRWaiterDeskView.CommandBar: ICommandBar;
+begin
+  Result := FICommandBarImpl as ICommandBar;
+end;
 
 procedure TfrCBRWaiterDeskView.grOrdersViewCellClick(
   Sender: TcxCustomGridTableView; ACellViewInfo: TcxGridTableDataCellViewInfo;
@@ -106,7 +113,9 @@ end;
 
 procedure TfrCBRWaiterDeskView.OnInitialize;
 begin
-  WorkItem.Commands[COMMAND_CLOSE].AddInvoker(btClose, 'OnClick');
+  FICommandBarImpl := TICommandBarImpl.Create(Self, WorkItem, pnButtons);
+
+ // WorkItem.Commands[COMMAND_CLOSE].AddInvoker(btClose, 'OnClick');
 
   WorkItem.Commands[COMMAND_ROOM_PRIOR].AddInvoker(btRoomPrior, 'OnClick');
   WorkItem.Commands[COMMAND_ROOM_NEXT].AddInvoker(btRoomNext, 'OnClick');

@@ -67,6 +67,12 @@ type
     grMenuCardViewRowID: TcxGridDBCardViewRow;
     grMenuCardViewRowNAME: TcxGridDBCardViewRow;
     cxGridLevel2: TcxGridLevel;
+    cxGroupBox7: TcxGroupBox;
+    cxDBLabel2: TcxDBLabel;
+    cxDBLabel4: TcxDBLabel;
+    cxGroupBox8: TcxGroupBox;
+    cxDBLabel1: TcxDBLabel;
+    cxDBLabel5: TcxDBLabel;
     grMenuGrp: TcxGrid;
     cxGridDBBandedTableView1: TcxGridDBBandedTableView;
     cxGridDBBandedColumn1: TcxGridDBBandedColumn;
@@ -75,12 +81,6 @@ type
     cxGridDBCardViewRow1: TcxGridDBCardViewRow;
     cxGridDBCardViewRow2: TcxGridDBCardViewRow;
     cxGridLevel3: TcxGridLevel;
-    cxGroupBox7: TcxGroupBox;
-    cxDBLabel2: TcxDBLabel;
-    cxDBLabel4: TcxDBLabel;
-    cxGroupBox8: TcxGroupBox;
-    cxDBLabel1: TcxDBLabel;
-    cxDBLabel5: TcxDBLabel;
     procedure grMenuGrpViewCellClick(Sender: TcxCustomGridTableView;
       ACellViewInfo: TcxGridTableDataCellViewInfo; AButton: TMouseButton;
       AShift: TShiftState; var AHandled: Boolean);

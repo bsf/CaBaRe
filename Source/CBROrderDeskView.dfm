@@ -1,8 +1,8 @@
 inherited frCBROrderDeskView: TfrCBROrderDeskView
   Caption = 'frCBROrderDeskView'
   ClientHeight = 541
-  ClientWidth = 1165
-  ExplicitWidth = 1171
+  ClientWidth = 943
+  ExplicitWidth = 949
   ExplicitHeight = 569
   PixelsPerInch = 96
   TextHeight = 13
@@ -10,7 +10,7 @@ inherited frCBROrderDeskView: TfrCBROrderDeskView
     ExplicitWidth = 1165
     ExplicitHeight = 541
     Height = 541
-    Width = 1165
+    Width = 943
     object cxGroupBox1: TcxGroupBox
       AlignWithMargins = True
       Left = 3
@@ -483,6 +483,7 @@ inherited frCBROrderDeskView: TfrCBROrderDeskView
             DataBinding.DataSource = dsHead
             Properties.Alignment.Horz = taRightJustify
             Properties.Alignment.Vert = taVCenter
+            Transparent = True
             Height = 19
             Width = 121
             AnchorX = 376
@@ -496,6 +497,7 @@ inherited frCBROrderDeskView: TfrCBROrderDeskView
             DataBinding.DataSource = dsHead
             Properties.Alignment.Horz = taLeftJustify
             Properties.Alignment.Vert = taVCenter
+            Transparent = True
             Height = 19
             Width = 121
             AnchorY = 10
@@ -504,13 +506,14 @@ inherited frCBROrderDeskView: TfrCBROrderDeskView
       end
     end
     object cxGroupBox11: TcxGroupBox
-      Left = 888
+      Left = 666
       Top = 0
       Align = alRight
       PanelStyle.Active = True
       PanelStyle.OfficeBackgroundKind = pobkStyleColor
       Style.BorderStyle = ebsNone
       TabOrder = 1
+      ExplicitLeft = 888
       Height = 541
       Width = 277
       object pnMenuGrp: TcxGroupBox
@@ -619,7 +622,6 @@ inherited frCBROrderDeskView: TfrCBROrderDeskView
               Position.BeginsLayer = True
               Position.LineCount = 2
               Styles.Content = cxStyle1
-              Styles.CaptionRow = cxStyle1
             end
           end
           object cxGridLevel3: TcxGridLevel
@@ -753,18 +755,20 @@ inherited frCBROrderDeskView: TfrCBROrderDeskView
       Style.BorderStyle = ebsNone
       Style.TransparentBorder = False
       TabOrder = 2
+      ExplicitWidth = 497
       Height = 535
-      Width = 497
+      Width = 275
       object grMenu: TcxGrid
         AlignWithMargins = True
         Left = 3
         Top = 3
-        Width = 491
+        Width = 269
         Height = 529
         Align = alClient
         BorderStyle = cxcbsNone
         TabOrder = 0
         LookAndFeel.Kind = lfOffice11
+        ExplicitWidth = 491
         object grMenuView: TcxGridDBBandedTableView
           OnCellClick = grMenuViewCellClick
           DataController.DataSource = dsMenu

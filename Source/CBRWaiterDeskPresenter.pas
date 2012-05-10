@@ -6,9 +6,7 @@ uses CustomPresenter, db, EntityServiceIntf, CoreClasses, CBRConst,
 
 const
   ENT = 'CBR_WD_VIEW';
-  ENT_ROOM = 'CBR_ROOM';
   ENT_TBL = 'CBR_TBL';
-  COMMAND_ROOM_PRIOR = '{6C48FDFC-FEEE-47C8-B685-8FE4A3205C2E}';
   COMMAND_ROOM_NEXT = '{AEDD37FF-27CE-422C-A271-7B0030EA9D6B}';
   COMMAND_TABLE_INFO_SHOW = '{B8BF467A-774E-41E4-8CC1-DF575BEC6322}';
   COMMAND_TABLE_INFO_HIDE = '{BBC9CB7F-CFEF-4E64-9D27-1D1B566EFEBB}';
@@ -36,7 +34,6 @@ type
     function GetEVOrders: IEntityView;
     function View: ICBRWaiterDeskView;
     procedure UpdateCommandStatus;
-    procedure CmdRoomPrior(Sender: TObject);
     procedure CmdRoomNext(Sender: TObject);
     procedure CmdTableInfoShow(Sender: TObject);
     procedure CmdOrderNew(Sender: TObject);
@@ -73,15 +70,16 @@ end;
 
 procedure TCBRWaiterDeskPresenter.CmdRoomNext(Sender: TObject);
 begin
+
   if not GetEVRooms.DataSet.Eof then
     GetEVRooms.DataSet.Next;
-  UpdateCommandStatus;
-end;
 
-procedure TCBRWaiterDeskPresenter.CmdRoomPrior(Sender: TObject);
-begin
-  if not GetEVRooms.DataSet.Bof then
-    GetEVRooms.DataSet.Prior;
+  if GetEVRooms.DataSet.Eof then
+    GetEVRooms.DataSet.First;
+
+  GetEVTables.Params.ParamValues['ROOM_ID'] := GetEVRooms.DataSet['ID'];
+  GetEVTables.Load(true, '-');
+
   UpdateCommandStatus;
 end;
 
@@ -112,7 +110,7 @@ end;
 function TCBRWaiterDeskPresenter.GetEVRooms: IEntityView;
 begin
   Result := (WorkItem.Services[IEntityService] as IEntityService).
-    Entity[ENT_ROOM].GetView('Lookup', WorkItem);
+    Entity[ENT].GetView('Rooms', WorkItem);
 
   Result.Load(false);
 
@@ -132,7 +130,8 @@ begin
   Result := (WorkItem.Services[IEntityService] as IEntityService).
     Entity[ENT].GetView('Tables', WorkItem);
 
-  Result.Load(false);
+  GetEVTables.Params.ParamValues['ROOM_ID'] := GetEVRooms.DataSet['ID'];
+  Result.Load(false, '-');
 end;
 
 procedure TCBRWaiterDeskPresenter.OnViewReady;
@@ -142,11 +141,6 @@ begin
   View.LinkRoomsDataSet(GetEVRooms.DataSet);
   View.LinkTablesDataSet(GetEVTables.DataSet);
 
-  View.CommandBar.
-    AddCommand(COMMAND_CLOSE, GetLocaleString(@COMMAND_CLOSE_CAPTION), COMMAND_CLOSE_SHORTCUT);
-  WorkItem.Commands[COMMAND_CLOSE].SetHandler(CmdClose);
-
-  WorkItem.Commands[COMMAND_ROOM_PRIOR].SetHandler(CmdRoomPrior);
   WorkItem.Commands[COMMAND_ROOM_NEXT].SetHandler(CmdRoomNext);
   WorkItem.Commands[COMMAND_TABLE_INFO_SHOW].SetHandler(CmdTableInfoShow);
 
@@ -156,17 +150,6 @@ end;
 
 procedure TCBRWaiterDeskPresenter.UpdateCommandStatus;
 begin
-  if GetEVRooms.DataSet.Bof then
-    WorkItem.Commands[COMMAND_ROOM_PRIOR].Status := csDisabled
-  else
-    WorkItem.Commands[COMMAND_ROOM_PRIOR].Status := csEnabled;
-
-
-  if GetEVRooms.DataSet.Eof then
-    WorkItem.Commands[COMMAND_ROOM_NEXT].Status := csDisabled
-  else
-    WorkItem.Commands[COMMAND_ROOM_NEXT].Status := csEnabled;
-
 
 end;
 

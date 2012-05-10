@@ -12,7 +12,7 @@ uses
   cxGridDBTableView, cxGrid, cxDBLabel, UIClasses, cxNavigator, cxDBNavigator,
   CBRWaiterDeskPresenter, cxGridBandedTableView, cxGridDBBandedTableView,
   cxTextEdit, cxScrollBar, cxGridCardView, cxGridDBCardView,
-  cxGridCustomLayoutView, ICommandBarImpl;
+  cxGridCustomLayoutView;
 
 type
   TfrCBRWaiterDeskView = class(TfrCustomView, ICBRWaiterDeskView)
@@ -22,11 +22,9 @@ type
     cxStyle1: TcxStyle;
     dsTableInfo: TDataSource;
     dsOrders: TDataSource;
-    pnButtons: TcxGroupBox;
     cxGroupBox4: TcxGroupBox;
-    cxDBLabel2: TcxDBLabel;
     cxGroupBox8: TcxGroupBox;
-    btRoomPrior: TcxButton;
+    btClose: TcxButton;
     btRoomNext: TcxButton;
     cxGroupBox9: TcxGroupBox;
     grTables: TcxGrid;
@@ -36,8 +34,6 @@ type
     grTablesViewRowNAME: TcxGridDBCardViewRow;
     cxGridLevel2: TcxGridLevel;
     pnTableInfo: TcxGroupBox;
-    cxDBLabel1: TcxDBLabel;
-    cxDBLabel3: TcxDBLabel;
     cxGroupBox5: TcxGroupBox;
     grOrders: TcxGrid;
     grOrdersView: TcxGridDBCardView;
@@ -50,6 +46,11 @@ type
     btOrderNew: TcxButton;
     grOrdersViewRowTIME: TcxGridDBCardViewRow;
     cxStyle2: TcxStyle;
+    cxGroupBox1: TcxGroupBox;
+    cxDBLabel1: TcxDBLabel;
+    cxDBLabel3: TcxDBLabel;
+    cxGroupBox2: TcxGroupBox;
+    cxDBLabel2: TcxDBLabel;
     procedure grTablesViewCellClick(Sender: TcxCustomGridTableView;
       ACellViewInfo: TcxGridTableDataCellViewInfo; AButton: TMouseButton;
       AShift: TShiftState; var AHandled: Boolean);
@@ -57,7 +58,7 @@ type
       ACellViewInfo: TcxGridTableDataCellViewInfo; AButton: TMouseButton;
       AShift: TShiftState; var AHandled: Boolean);
   private
-    FICommandBarImpl: TICommandBarImpl;
+
 
   protected
     //ICBRWaiterDeskView
@@ -67,7 +68,6 @@ type
     procedure TableInfoHide;
 
   protected
-    function CommandBar: ICommandBar; override;
     procedure OnInitialize; override;
   end;
 
@@ -79,11 +79,6 @@ implementation
 {$R *.dfm}
 
 { TfrCBRWaiterDeskView }
-
-function TfrCBRWaiterDeskView.CommandBar: ICommandBar;
-begin
-  Result := FICommandBarImpl as ICommandBar;
-end;
 
 procedure TfrCBRWaiterDeskView.grOrdersViewCellClick(
   Sender: TcxCustomGridTableView; ACellViewInfo: TcxGridTableDataCellViewInfo;
@@ -113,11 +108,9 @@ end;
 
 procedure TfrCBRWaiterDeskView.OnInitialize;
 begin
-  FICommandBarImpl := TICommandBarImpl.Create(Self, WorkItem, pnButtons);
 
- // WorkItem.Commands[COMMAND_CLOSE].AddInvoker(btClose, 'OnClick');
+  WorkItem.Commands[COMMAND_CLOSE].AddInvoker(btClose, 'OnClick');
 
-  WorkItem.Commands[COMMAND_ROOM_PRIOR].AddInvoker(btRoomPrior, 'OnClick');
   WorkItem.Commands[COMMAND_ROOM_NEXT].AddInvoker(btRoomNext, 'OnClick');
 
   WorkItem.Commands[COMMAND_ORDER_NEW].AddInvoker(btOrderNew, 'OnClick');

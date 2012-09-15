@@ -36,8 +36,6 @@ type
     cxGroupBox2: TcxGroupBox;
     dsHead: TDataSource;
     cxStyle2: TcxStyle;
-    cxGroupBox11: TcxGroupBox;
-    pnMenuGrp: TcxGroupBox;
     dsItems: TDataSource;
     cxGroupBox12: TcxGroupBox;
     btItemPrior: TcxButton;
@@ -47,13 +45,6 @@ type
     cxGroupBox14: TcxGroupBox;
     btItemQtyDec: TcxButton;
     btItemQtyInc: TcxButton;
-    cxGroupBox4: TcxGroupBox;
-    cxGroupBox15: TcxGroupBox;
-    btPreCheck: TcxButton;
-    cxGroupBox16: TcxGroupBox;
-    btClose: TcxButton;
-    btPayt: TcxButton;
-    btKORD: TcxButton;
     cxGroupBox10: TcxGroupBox;
     btItemCancel: TcxButton;
     cxButton7: TcxButton;
@@ -73,6 +64,7 @@ type
     cxGroupBox8: TcxGroupBox;
     cxDBLabel1: TcxDBLabel;
     cxDBLabel5: TcxDBLabel;
+    cxGroupBox4: TcxGroupBox;
     grMenuGrp: TcxGrid;
     cxGridDBBandedTableView1: TcxGridDBBandedTableView;
     cxGridDBBandedColumn1: TcxGridDBBandedColumn;
@@ -81,6 +73,10 @@ type
     cxGridDBCardViewRow1: TcxGridDBCardViewRow;
     cxGridDBCardViewRow2: TcxGridDBCardViewRow;
     cxGridLevel3: TcxGridLevel;
+    btPreCheck: TcxButton;
+    btKORD: TcxButton;
+    btPayt: TcxButton;
+    btClose: TcxButton;
     procedure grMenuGrpViewCellClick(Sender: TcxCustomGridTableView;
       ACellViewInfo: TcxGridTableDataCellViewInfo; AButton: TMouseButton;
       AShift: TShiftState; var AHandled: Boolean);
@@ -139,8 +135,8 @@ end;
 
 procedure TfrCBROrderDeskView.HideMenu;
 begin
-  pnMenu.Visible := false;
-  pnMenuGrp.Visible := false;
+  grMenu.Visible := false;
+  grMenuGrp.Visible := false;
 end;
 
 procedure TfrCBROrderDeskView.LinkHeadData(ADataSet: TDataSet);

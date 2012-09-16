@@ -67,6 +67,14 @@
 			<DCCReference Include="CBROrderDeskPresenter.pas"/>
 			<DCCReference Include="CBRConst.pas"/>
 			<DCCReference Include="CBRController.pas"/>
+			<DCCReference Include="CBROrderMoveView.pas">
+				<Form>frCBROrderMoveView</Form>
+			</DCCReference>
+			<DCCReference Include="CBROrderMovePresenter.pas"/>
+			<DCCReference Include="CBROrderPaytView.pas">
+				<Form>frCBROrderPaytView</Form>
+			</DCCReference>
+			<DCCReference Include="CBROrderPaytPresenter.pas"/>
 			<BuildConfiguration Include="Release">
 				<Key>Cfg_2</Key>
 				<CfgParent>Base</CfgParent>

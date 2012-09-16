@@ -38,6 +38,10 @@ contains
   CBROrderDeskView in 'CBROrderDeskView.pas' {frCBROrderDeskView},
   CBROrderDeskPresenter in 'CBROrderDeskPresenter.pas',
   CBRConst in 'CBRConst.pas',
-  CBRController in 'CBRController.pas';
+  CBRController in 'CBRController.pas',
+  CBROrderMoveView in 'CBROrderMoveView.pas' {frCBROrderMoveView},
+  CBROrderMovePresenter in 'CBROrderMovePresenter.pas',
+  CBROrderPaytView in 'CBROrderPaytView.pas' {frCBROrderPaytView},
+  CBROrderPaytPresenter in 'CBROrderPaytPresenter.pas';
 
 end.

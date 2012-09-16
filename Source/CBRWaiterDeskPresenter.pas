@@ -53,7 +53,8 @@ begin
   View.TableInfoHide;
   Sender.GetInterface(ICommand, cmd);
 
-  activity := WorkItem.Activities[ACTIVITY_ORDER_DESK_ITEM];
+//  activity := WorkItem.Activities[ACTIVITY_ORDER_DESK_ITEM];
+  activity := WorkItem.Activities[ACTIVITY_ORDER_URI];
   activity.Params['ID'] := cmd.Data['ID'];
   activity.Execute(WorkItem);
 end;
@@ -63,7 +64,7 @@ var
   activity: IActivity;
 begin
   View.TableInfoHide;
-  activity := WorkItem.Activities[ACTIVITY_ORDER_DESK_NEW];
+  activity := WorkItem.Activities[ACTIVITY_ORDER_NEW];
   activity.Params['TBL_ID'] := GetEVTableInfo.DataSet['ID'];
   activity.Execute(WorkItem);
 end;

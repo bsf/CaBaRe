@@ -17,6 +17,7 @@ const
   COMMAND_KORD = '{84528DE7-D306-4011-BDD5-A511F0BAD3C5}';
   COMMAND_PRECHECK = '{35A920C6-BC75-41D2-A83E-EB0DC44F52F9}';
   COMMAND_PAYT = '{D1ADF96C-9003-4C8F-AC1E-347808602886}';
+  COMMAND_MOVE = '{E8B21D1B-FFCD-4C10-AB8C-B8FA233C4D40}';
 
 type
   ICBROrderDeskView = interface
@@ -50,7 +51,7 @@ type
     procedure CmdItemNext(Sender: TObject);
     procedure CmdKORD(Sender: TObject);
     procedure CmdPRECHECK(Sender: TObject);
-    procedure CmdPayt(Sender: TObject);
+    procedure CmdMove(Sender: TObject);
     procedure ExecActivityAndClose(const URI: string);
   protected
     function OnGetWorkItemState(const AName: string; var Done: boolean): Variant; override;
@@ -69,15 +70,20 @@ begin
   Sender.GetInterface(ICommand, cmd);
 
   ds := GetEVItems.DataSet;
-  GetEVItems.Params.ParamValues['MENU_ID'] := cmd.Data['MENU_ID'];
-  try
-    ds.Append;
-    ds.Post;
-  except
-    ds.Cancel;
-    raise;
+  if (not ds.IsEmpty)
+      and (ds.FieldValues['MENU_ID'] = cmd.Data['MENU_ID'])
+      and (ds.FieldValues['FKORD'] = 0) then
+    SetItemQty(GetEVItems.DataSet['QTY'] + 1)
+  else begin
+    GetEVItems.Params.ParamValues['MENU_ID'] := cmd.Data['MENU_ID'];
+    try
+      ds.Append;
+      ds.Post;
+    except
+      ds.Cancel;
+      raise;
+    end;
   end;
-
 //  Insert;
 end;
 
@@ -117,6 +123,11 @@ begin
   ExecActivityAndClose(ACTIVITY_KORDER_CREATE);
 end;
 
+procedure TCBROrderDeskPresenter.CmdMove(Sender: TObject);
+begin
+  ExecActivityAndClose(ACTIVITY_ORDER_MOVE);
+end;
+
 procedure TCBROrderDeskPresenter.CmdOpenMenu(Sender: TObject);
 var
   cmd: ICommand;
@@ -125,11 +136,6 @@ begin
 
   GetEVMenu.Load([cmd.Data['GRP_ID']]);
   View.LinkMenuData(GetEVMenu.DataSet);
-end;
-
-procedure TCBROrderDeskPresenter.CmdPayt(Sender: TObject);
-begin
-  ExecActivityAndClose(ACTIVITY_ORD_PAYT);
 end;
 
 procedure TCBROrderDeskPresenter.CmdPRECHECK(Sender: TObject);
@@ -205,7 +211,7 @@ procedure TCBROrderDeskPresenter.OnViewReady;
 begin
   ViewTitle := 'Заказ';
 
-  if ViewInfo.ActivityClass = ACTIVITY_ORDER_DESK_NEW then
+  if ViewInfo.ActivityClass = ACTIVITY_ORDER_NEW then
   begin
     WorkItem.State['ID'] :=
       (WorkItem.Services[IEntityService] as IEntityService).
@@ -219,17 +225,6 @@ begin
   GetEVItems.Load([WorkItem.State['ID']]);
   GetEVItems.DataSet.AfterScroll := ItemsAfterScroll;
 
-  if GetEVHead.DataSet['STATE_ID'] > 1 then
-  begin
-    WorkItem.Commands[COMMAND_ITEM_ADD].Status := csDisabled;
-    View.HideMenu;
-  end;
-
-  if GetEVHead.DataSet['STATE_ID'] >= 2 then
-  begin
-    WorkItem.Commands[COMMAND_KORD].Status := csDisabled;
-    WorkItem.Commands[COMMAND_PRECHECK].Status := csDisabled;
-  end;
 
   View.LinkHeadData(GetEVHead.DataSet);
   View.LinkItemsData(GetEVItems.DataSet);
@@ -248,7 +243,7 @@ begin
 
   WorkItem.Commands[COMMAND_KORD].SetHandler(CmdKORD);
   WorkItem.Commands[COMMAND_PRECHECK].SetHandler(CmdPRECHECK);
-  WorkItem.Commands[COMMAND_PAYT].SetHandler(CmdPAYT);
+  WorkItem.Commands[COMMAND_MOVE].SetHandler(CmdMove);
 
   UpdateCommandStatus;
 end;

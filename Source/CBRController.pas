@@ -3,7 +3,10 @@ unit CBRController;
 interface
 uses CoreClasses, SysUtils, CBRConst, UIClasses, variants,
   CBRWaiterDeskPresenter, CBRWaiterDeskView,
-  CBROrderDeskPresenter, CBROrderDeskView, ShellIntf;
+  CBROrderDeskPresenter, CBROrderDeskView,
+  CBROrderMovePresenter, CBROrderMoveView,
+  CBROrderPaytPresenter, CBROrderPaytView,
+  ShellIntf;
 
 
 type
@@ -34,6 +37,7 @@ type
     TCBR_KORD_Create_Handler = class(TActivityHandler)
     const
       ENT = 'CBR_KORD';
+      EView = 'Create';
       ACTIVITY_PRINT = 'reports.korder'; //'views.CBR_MENU.List';//'reports.korder';
     public
       procedure Execute(Sender: TWorkItem; Activity: IActivity); override;
@@ -51,11 +55,19 @@ begin
   WorkItem.Activities['views.CBR_WAITER_DESK.view'].
     RegisterHandler(TViewActivityHandler.Create(TCBRWaiterDeskPresenter, TfrCBRWaiterDeskView));
 
-  WorkItem.Activities[ACTIVITY_ORDER_DESK_NEW].
+  WorkItem.Activities[ACTIVITY_ORDER_NEW].
     RegisterHandler(TViewActivityHandler.Create(TCBROrderDeskPresenter, TfrCBROrderDeskView));
 
-  WorkItem.Activities[ACTIVITY_ORDER_DESK_ITEM].
+  WorkItem.Activities[ACTIVITY_ORDER_DESK].
     RegisterHandler(TViewActivityHandler.Create(TCBROrderDeskPresenter, TfrCBROrderDeskView));
+  WorkItem.Activities[ACTIVITY_ORDER_DESK].Params['ID'] := Unassigned;
+
+  WorkItem.Activities[ACTIVITY_ORDER_MOVE].
+    RegisterHandler(TViewActivityHandler.Create(TCBROrderMovePresenter, TfrCBROrderMoveView));
+
+  WorkItem.Activities[ACTIVITY_ORDER_PAYT].
+    RegisterHandler(TViewActivityHandler.Create(TCBROrderPaytPresenter, TfrCBROrderPaytView));
+    WorkItem.Activities[ACTIVITY_ORDER_PAYT].Params['ID'] := Unassigned;
 
   WorkItem.Activities[ACTIVITY_KORDER_CREATE].
     RegisterHandler(TCBR_KORD_Create_Handler.Create);
@@ -77,13 +89,13 @@ var
   KORD_ID: Variant;
 
 begin
-  KORD_ID := App.Entities.Entity[ENT].GetOper('Create', Sender).
+  KORD_ID := App.Entities.Entity[ENT].GetOper(EView, Sender).
     Execute([Activity.Params['ORD_ID']]).FieldValues['ID'];
 
   if VarToStr(KORD_ID) <> '' then
   begin
     Sender.Activities[ACTIVITY_PRINT].Params['ID'] := KORD_ID;
-    Sender.Activities[ACTIVITY_PRINT].Params['LaunchMode'] := 1;
+    Sender.Activities[ACTIVITY_PRINT].Params['LaunchMode'] := 2;
     Sender.Activities[ACTIVITY_PRINT].Execute(Sender);
   end;
 
@@ -96,7 +108,7 @@ procedure TCBRController.TPreCheckHandler.Execute(Sender: TWorkItem;
 begin
   App.Entities.Entity[ENT].GetOper(EVIEW, Sender).Execute([Activity.Params['ORD_ID']]);
   Sender.Activities[ACTIVITY_PRINT].Params['ID'] := Activity.Params['ORD_ID'];
-  Sender.Activities[ACTIVITY_PRINT].Params['LaunchMode'] := 1;
+  Sender.Activities[ACTIVITY_PRINT].Params['LaunchMode'] := 2;
   Sender.Activities[ACTIVITY_PRINT].Execute(Sender);
 
 end;

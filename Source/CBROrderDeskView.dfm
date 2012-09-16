@@ -2,6 +2,7 @@ inherited frCBROrderDeskView: TfrCBROrderDeskView
   Caption = 'frCBROrderDeskView'
   ClientHeight = 541
   ClientWidth = 1101
+  ExplicitLeft = -341
   ExplicitWidth = 1107
   ExplicitHeight = 569
   PixelsPerInch = 96
@@ -132,6 +133,7 @@ inherited frCBROrderDeskView: TfrCBROrderDeskView
               Caption = #1082#1086#1083'-'#1074#1086
               DataBinding.FieldName = 'QTY'
               Options.Focusing = False
+              Styles.Content = cxStyle2
               Width = 85
               Position.BandIndex = 0
               Position.ColIndex = 1
@@ -527,7 +529,6 @@ inherited frCBROrderDeskView: TfrCBROrderDeskView
         BorderStyle = cxcbsNone
         TabOrder = 0
         LookAndFeel.Kind = lfOffice11
-        ExplicitWidth = 423
         object grMenuView: TcxGridDBBandedTableView
           OnCellClick = grMenuViewCellClick
           DataController.DataSource = dsMenu
@@ -665,14 +666,14 @@ inherited frCBROrderDeskView: TfrCBROrderDeskView
           Font.Style = [fsBold]
           ParentFont = False
         end
-        object btPayt: TcxButton
+        object btMove: TcxButton
           AlignWithMargins = True
           Left = 500
           Top = 5
           Width = 121
           Height = 60
           Align = alRight
-          Caption = #1054#1087#1083#1072#1090#1072
+          Caption = #1055#1077#1088#1077#1073#1088#1086#1089#1082#1072
           LookAndFeel.Kind = lfOffice11
           SpeedButtonOptions.CanBeFocused = False
           TabOrder = 2

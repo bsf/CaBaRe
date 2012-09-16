@@ -75,7 +75,7 @@ type
     cxGridLevel3: TcxGridLevel;
     btPreCheck: TcxButton;
     btKORD: TcxButton;
-    btPayt: TcxButton;
+    btMove: TcxButton;
     btClose: TcxButton;
     procedure grMenuGrpViewCellClick(Sender: TcxCustomGridTableView;
       ACellViewInfo: TcxGridTableDataCellViewInfo; AButton: TMouseButton;
@@ -146,7 +146,8 @@ end;
 
 procedure TfrCBROrderDeskView.LinkItemsData(ADataSet: TDataSet);
 begin
-  dsItems.DataSet := ADataSet;
+//  dsItems.DataSet := ADataSet;
+  Self.LinkDataSet(dsItems, ADataSet);
 end;
 
 procedure TfrCBROrderDeskView.LinkMenuData(ADataSet: TDataSet);
@@ -173,7 +174,7 @@ begin
 
   WorkItem.Commands[COMMAND_KORD].AddInvoker(btKORD, 'OnClick');
   WorkItem.Commands[COMMAND_PRECHECK].AddInvoker(btPreCheck, 'OnClick');
-  WorkItem.Commands[COMMAND_PAYT].AddInvoker(btPayt, 'OnClick');
+  WorkItem.Commands[COMMAND_MOVE].AddInvoker(btMove, 'OnClick');
 end;
 
 end.

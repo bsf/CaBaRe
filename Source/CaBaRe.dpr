@@ -16,7 +16,7 @@ type
   end;
 
 begin
- // Application.Initialize;  // for enabled applicaion options editor
+  //Application.Initialize;  // for enabled applicaion options editor
 
 //  Application.MainFormOnTaskbar := True;
 

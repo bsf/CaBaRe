@@ -91,10 +91,6 @@ inherited frCBRWaiterDeskView: TfrCBRWaiterDeskView
           PanelStyle.OfficeBackgroundKind = pobkStyleColor
           Style.BorderStyle = ebsNone
           TabOrder = 1
-          ExplicitLeft = 2
-          ExplicitTop = 2
-          ExplicitWidth = 174
-          ExplicitHeight = 114
           Height = 65
           Width = 265
           object cxDBLabel2: TcxDBLabel
@@ -119,10 +115,6 @@ inherited frCBRWaiterDeskView: TfrCBRWaiterDeskView
             StyleFocused.LookAndFeel.Kind = lfOffice11
             StyleHot.LookAndFeel.Kind = lfOffice11
             Transparent = True
-            ExplicitLeft = 3
-            ExplicitTop = 1
-            ExplicitWidth = 267
-            ExplicitHeight = 67
             Height = 61
             Width = 261
             AnchorY = 33
@@ -143,8 +135,6 @@ inherited frCBRWaiterDeskView: TfrCBRWaiterDeskView
         StyleFocused.LookAndFeel.Kind = lfOffice11
         StyleHot.LookAndFeel.Kind = lfOffice11
         TabOrder = 1
-        ExplicitTop = 143
-        ExplicitHeight = 407
         Height = 466
         Width = 501
         object grTables: TcxGrid
@@ -157,7 +147,6 @@ inherited frCBRWaiterDeskView: TfrCBRWaiterDeskView
           BorderStyle = cxcbsNone
           TabOrder = 0
           LookAndFeel.Kind = lfOffice11
-          ExplicitHeight = 401
           object grTablesView: TcxGridDBCardView
             OnCellClick = grTablesViewCellClick
             DataController.DataSource = dsTables
@@ -260,29 +249,8 @@ inherited frCBRWaiterDeskView: TfrCBRWaiterDeskView
           StyleFocused.LookAndFeel.Kind = lfOffice11
           StyleHot.LookAndFeel.Kind = lfOffice11
           TabOrder = 0
-          ExplicitTop = 5
-          ExplicitHeight = 59
           Height = 65
           Width = 246
-          object cxButton2: TcxButton
-            AlignWithMargins = True
-            Left = 3
-            Top = 3
-            Width = 78
-            Height = 59
-            Align = alLeft
-            Caption = #1057#1090#1072#1090#1091#1089
-            LookAndFeel.Kind = lfOffice11
-            SpeedButtonOptions.CanBeFocused = False
-            TabOrder = 0
-            Visible = False
-            Font.Charset = DEFAULT_CHARSET
-            Font.Color = clWindowText
-            Font.Height = -16
-            Font.Name = 'MS Sans Serif'
-            Font.Style = []
-            ParentFont = False
-          end
           object btOrderNew: TcxButton
             AlignWithMargins = True
             Left = 120
@@ -292,15 +260,13 @@ inherited frCBRWaiterDeskView: TfrCBRWaiterDeskView
             Align = alRight
             Caption = #1053#1086#1074#1099#1081' '#1079#1072#1082#1072#1079
             SpeedButtonOptions.CanBeFocused = False
-            TabOrder = 1
+            TabOrder = 0
             Font.Charset = DEFAULT_CHARSET
             Font.Color = clWindowText
             Font.Height = -16
             Font.Name = 'MS Sans Serif'
             Font.Style = [fsBold]
             ParentFont = False
-            ExplicitLeft = 123
-            ExplicitTop = 0
           end
         end
         object cxGroupBox1: TcxGroupBox
@@ -312,8 +278,6 @@ inherited frCBRWaiterDeskView: TfrCBRWaiterDeskView
           PanelStyle.OfficeBackgroundKind = pobkStyleColor
           Style.BorderStyle = ebsNone
           TabOrder = 1
-          ExplicitLeft = 2
-          ExplicitTop = 2
           Height = 65
           Width = 174
           object cxDBLabel1: TcxDBLabel
@@ -354,8 +318,6 @@ inherited frCBRWaiterDeskView: TfrCBRWaiterDeskView
             StyleFocused.LookAndFeel.Kind = lfOffice11
             StyleHot.LookAndFeel.Kind = lfOffice11
             Transparent = True
-            ExplicitLeft = 1
-            ExplicitTop = -4
             Height = 21
             Width = 170
           end
@@ -375,8 +337,6 @@ inherited frCBRWaiterDeskView: TfrCBRWaiterDeskView
         StyleFocused.LookAndFeel.Kind = lfOffice11
         StyleHot.LookAndFeel.Kind = lfOffice11
         TabOrder = 1
-        ExplicitTop = 75
-        ExplicitHeight = 475
         Height = 466
         Width = 433
         object grOrders: TcxGrid
@@ -389,7 +349,6 @@ inherited frCBRWaiterDeskView: TfrCBRWaiterDeskView
           BorderStyle = cxcbsNone
           TabOrder = 0
           LookAndFeel.Kind = lfOffice11
-          ExplicitHeight = 469
           object grOrdersView: TcxGridDBCardView
             OnCellClick = grOrdersViewCellClick
             DataController.DataSource = dsOrders

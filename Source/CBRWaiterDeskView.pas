@@ -42,7 +42,6 @@ type
     cxGridDBCardViewRowSUMM: TcxGridDBCardViewRow;
     cxGridLevel1: TcxGridLevel;
     cxGroupBox3: TcxGroupBox;
-    cxButton2: TcxButton;
     btOrderNew: TcxButton;
     grOrdersViewRowTIME: TcxGridDBCardViewRow;
     cxStyle2: TcxStyle;

@@ -2,7 +2,6 @@ inherited frCBROrderDeskView: TfrCBROrderDeskView
   Caption = 'frCBROrderDeskView'
   ClientHeight = 541
   ClientWidth = 1101
-  ExplicitLeft = -341
   ExplicitWidth = 1107
   ExplicitHeight = 569
   PixelsPerInch = 96
@@ -83,6 +82,7 @@ inherited frCBROrderDeskView: TfrCBROrderDeskView
               DataBinding.FieldName = 'ID'
               Visible = False
               Options.Focusing = False
+              VisibleForCustomization = False
               Position.BandIndex = 0
               Position.ColIndex = 0
               Position.RowIndex = 0
@@ -92,6 +92,7 @@ inherited frCBROrderDeskView: TfrCBROrderDeskView
               DataBinding.FieldName = 'RECNO'
               Visible = False
               Options.Focusing = False
+              VisibleForCustomization = False
               Width = 39
               Position.BandIndex = 0
               Position.ColIndex = 1
@@ -104,7 +105,9 @@ inherited frCBROrderDeskView: TfrCBROrderDeskView
               Properties.Alignment = taCenter
               Properties.ValueChecked = 1
               Properties.ValueUnchecked = 0
+              Visible = False
               Options.Focusing = False
+              VisibleForCustomization = False
               Width = 24
               Position.BandIndex = 0
               Position.ColIndex = 0
@@ -677,6 +680,7 @@ inherited frCBROrderDeskView: TfrCBROrderDeskView
           LookAndFeel.Kind = lfOffice11
           SpeedButtonOptions.CanBeFocused = False
           TabOrder = 2
+          Visible = False
           Font.Charset = DEFAULT_CHARSET
           Font.Color = clWindowText
           Font.Height = -16

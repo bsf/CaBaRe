@@ -244,7 +244,7 @@ begin
   WorkItem.Commands[COMMAND_KORD].SetHandler(CmdKORD);
   WorkItem.Commands[COMMAND_PRECHECK].SetHandler(CmdPRECHECK);
   WorkItem.Commands[COMMAND_MOVE].SetHandler(CmdMove);
-
+  WorkItem.Commands[COMMAND_MOVE].Status := csUnavailable;
   UpdateCommandStatus;
 end;
 

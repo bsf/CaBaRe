@@ -364,7 +364,7 @@ inherited frCBROrderDeskView: TfrCBROrderDeskView
               TabOrder = 0
               WordWrap = True
             end
-            object cxButton7: TcxButton
+            object btItemAddon: TcxButton
               AlignWithMargins = True
               Left = 186
               Top = 3
@@ -484,7 +484,7 @@ inherited frCBROrderDeskView: TfrCBROrderDeskView
             Left = 255
             Top = 0
             Align = alRight
-            DataBinding.DataField = 'STATE'
+            DataBinding.DataField = 'IDAT'
             DataBinding.DataSource = dsHead
             Properties.Alignment.Horz = taRightJustify
             Properties.Alignment.Vert = taVCenter

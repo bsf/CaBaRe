@@ -1,7 +1,8 @@
 unit CBROrderDeskPresenter;
 
 interface
-uses CustomPresenter, db, EntityServiceIntf, CoreClasses, CBRConst, sysutils;
+uses CustomPresenter, db, EntityServiceIntf, CoreClasses, CBRConst, sysutils,
+  variants;
 
 const
   ENT = 'CBR_ORD_DESK';
@@ -10,6 +11,7 @@ const
   COMMAND_ITEM_QTY_INC = '{D397B9F8-8D6E-4E94-9BC6-C716C0380AC6}';
   COMMAND_ITEM_QTY_DEC = '{0B452758-1D53-4871-958E-E1790A9B5EC7}';
   COMMAND_ITEM_CANCEL = '{7FA180AF-7B6E-431A-AD3C-FB884BD0D5BC}';
+  COMMAND_ITEM_ADDON = '{BC859346-0415-4FE4-8744-2BAB90D4B192}';
 
   COMMAND_ITEM_PRIOR = '{ECAA2DAF-280A-4CBB-9441-C9B0DF9D1835}';
   COMMAND_ITEM_NEXT = '{9C1AC964-59DF-462B-B451-7BBEF033D0F1}';
@@ -32,16 +34,18 @@ type
 
   TCBROrderDeskPresenter = class(TCustomPresenter)
   private
+    FLastItem: Variant;
     function GetEVHead: IEntityView;
     function GetEVItems: IEntityView;
+    function GetEVItemInit: IEntityView;
     function GetEVMenuGrp: IEntityView;
     function GetEVMenu: IEntityView;
     function View: ICBROrderDeskView;
     procedure ItemsAfterScroll(ADataSet: TDataSet);
     procedure UpdateCommandStatus;
 
-
     procedure CmdOpenMenu(Sender: TObject);
+    procedure CmdItemAddon(Sender: TObject);
     procedure CmdItemAdd(Sender: TObject);
     procedure CmdItemQtyInc(Sender: TObject);
     procedure CmdItemQtyDec(Sender: TObject);
@@ -66,24 +70,44 @@ procedure TCBROrderDeskPresenter.CmdItemAdd(Sender: TObject);
 var
   cmd: ICommand;
   ds: TDataSet;
+  dsNew: TDataSet;
+  i: integer;
+  field: TField;
 begin
   Sender.GetInterface(ICommand, cmd);
 
   ds := GetEVItems.DataSet;
   if (not ds.IsEmpty)
-      and (ds.FieldValues['MENU_ID'] = cmd.Data['MENU_ID'])
-      and (ds.FieldValues['FKORD'] = 0) then
+      and (ds['MENU_ID'] = cmd.Data['MENU_ID'])
+      and (ds['FKORD'] = 0) then
     SetItemQty(GetEVItems.DataSet['QTY'] + 1)
   else begin
-    GetEVItems.Params.ParamValues['MENU_ID'] := cmd.Data['MENU_ID'];
+
     try
       ds.Append;
+
+      dsNew := GetEVItemInit.Load([WorkItem.State['ID'],
+        GetEVMenu.DataSet['ID'],
+        GetEVMenu.DataSet['PARENT_ID']]);
+
+      for I := 0 to dsNew.FieldCount - 1 do
+      begin
+        field := ds.FindField(dsNew.Fields[I].FieldName);
+        if assigned(field) then
+          field.Value := dsNew.Fields[I].Value;
+      end;
+
+      if VarIsNull(ds['PARENT_ID']) then
+        FLastItem := ds['ID'];
       ds.Post;
+
     except
       ds.Cancel;
       raise;
     end;
   end;
+
+  GetEVHead.Load(true);
 //  Insert;
 end;
 
@@ -95,7 +119,8 @@ begin
   if ds['FKORD'] = 0 then
   begin
     ds.Delete;
-  end
+  end;
+  GetEVHead.Load(true);
 end;
 
 procedure TCBROrderDeskPresenter.CmdItemNext(Sender: TObject);
@@ -128,13 +153,19 @@ begin
   ExecActivityAndClose(ACTIVITY_ORDER_MOVE);
 end;
 
+procedure TCBROrderDeskPresenter.CmdItemAddon(Sender: TObject);
+begin
+  GetEVMenu.Load([null, GetEVItems.DataSet.FieldValues['ID']]);
+  View.LinkMenuData(GetEVMenu.DataSet);
+end;
+
 procedure TCBROrderDeskPresenter.CmdOpenMenu(Sender: TObject);
 var
   cmd: ICommand;
 begin
   Sender.GetInterface(ICommand, cmd);
 
-  GetEVMenu.Load([cmd.Data['GRP_ID']]);
+  GetEVMenu.Load([cmd.Data['GRP_ID'], null]);
   View.LinkMenuData(GetEVMenu.DataSet);
 end;
 
@@ -190,6 +221,12 @@ begin
     Entity[ENT].GetView('Header', WorkItem);
 end;
 
+function TCBROrderDeskPresenter.GetEVItemInit: IEntityView;
+begin
+  Result := (WorkItem.Services[IEntityService] as IEntityService).
+    Entity[ENT].GetView('ItemInit', WorkItem);
+end;
+
 function TCBROrderDeskPresenter.GetEVItems: IEntityView;
 begin
   Result := (WorkItem.Services[IEntityService] as IEntityService).
@@ -222,7 +259,7 @@ begin
   GetEVHead.Load([WorkItem.State['ID']]);
 
   GetEVItems.ImmediateSave := true;
-  GetEVItems.Load([WorkItem.State['ID']]);
+  GetEVItems.Load([null, WorkItem.State['ID']]);
   GetEVItems.DataSet.AfterScroll := ItemsAfterScroll;
 
 
@@ -237,6 +274,7 @@ begin
   WorkItem.Commands[COMMAND_ITEM_QTY_INC].SetHandler(CmdItemQtyInc);
   WorkItem.Commands[COMMAND_ITEM_QTY_DEC].SetHandler(CmdItemQtyDec);
   WorkItem.Commands[COMMAND_ITEM_CANCEL].SetHandler(CmdItemCancel);
+  WorkItem.Commands[COMMAND_ITEM_ADDON].SetHandler(CmdItemAddon);
 
   WorkItem.Commands[COMMAND_ITEM_PRIOR].SetHandler(CmdItemPrior);
   WorkItem.Commands[COMMAND_ITEM_NEXT].SetHandler(CmdItemNext);
@@ -259,10 +297,12 @@ begin
   try
     ds.Edit;
     ds['QTY'] := AValue;
+    ds['SUMM'] := ds['QTY'] * ds['PRICE'];
     ds.Post;
   finally
     ds.Cancel;
   end;
+  GetEVHead.Load(true);
 end;
 
 procedure TCBROrderDeskPresenter.UpdateCommandStatus;
@@ -270,6 +310,7 @@ begin
   WorkItem.Commands[COMMAND_ITEM_QTY_INC].Status := csDisabled;
   WorkItem.Commands[COMMAND_ITEM_QTY_DEC].Status := csDisabled;
   WorkItem.Commands[COMMAND_ITEM_CANCEL].Status := csDisabled;
+  WorkItem.Commands[COMMAND_ITEM_ADDON].Status := csUnavailable;
 
   if not GetEVItems.DataSet.IsEmpty then
   begin
@@ -280,6 +321,9 @@ begin
       WorkItem.Commands[COMMAND_ITEM_CANCEL].Status := csEnabled;
     end;
 
+    if (GetEVItems.DataSet['FKORD'] = 0) and
+       (GetEVItems.DataSet['ID'] = FLastItem) then
+      WorkItem.Commands[COMMAND_ITEM_ADDON].Status := csEnabled;
   end;
 end;
 

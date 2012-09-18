@@ -47,7 +47,7 @@ type
     btItemQtyInc: TcxButton;
     cxGroupBox10: TcxGroupBox;
     btItemCancel: TcxButton;
-    cxButton7: TcxButton;
+    btItemAddon: TcxButton;
     cxDBLabel3: TcxDBLabel;
     pnMenu: TcxGroupBox;
     grMenu: TcxGrid;
@@ -171,6 +171,7 @@ begin
   WorkItem.Commands[COMMAND_ITEM_QTY_DEC].AddInvoker(btItemQtyDec, 'OnClick');
 
   WorkItem.Commands[COMMAND_ITEM_CANCEL].AddInvoker(btItemCancel, 'OnClick');
+  WorkItem.Commands[COMMAND_ITEM_ADDON].AddInvoker(btItemAddon, 'OnClick');
 
   WorkItem.Commands[COMMAND_KORD].AddInvoker(btKORD, 'OnClick');
   WorkItem.Commands[COMMAND_PRECHECK].AddInvoker(btPreCheck, 'OnClick');

@@ -32,6 +32,7 @@ inherited frCBROrderDeskView: TfrCBROrderDeskView
         AlignWithMargins = True
         Left = 3
         Top = 55
+        Margins.Bottom = 0
         Align = alClient
         PanelStyle.Active = True
         PanelStyle.OfficeBackgroundKind = pobkStyleColor
@@ -42,14 +43,14 @@ inherited frCBROrderDeskView: TfrCBROrderDeskView
         StyleFocused.LookAndFeel.Kind = lfOffice11
         StyleHot.LookAndFeel.Kind = lfOffice11
         TabOrder = 0
-        Height = 246
+        Height = 284
         Width = 376
         object grOrder: TcxGrid
           AlignWithMargins = True
           Left = 3
           Top = 0
           Width = 370
-          Height = 243
+          Height = 281
           Margins.Top = 0
           Align = alClient
           BorderStyle = cxcbsNone
@@ -123,15 +124,6 @@ inherited frCBROrderDeskView: TfrCBROrderDeskView
               Position.ColIndex = 2
               Position.RowIndex = 0
             end
-            object grOrderViewColumnUNT: TcxGridDBBandedColumn
-              Caption = #1087#1086#1088'.'
-              DataBinding.FieldName = 'UNT'
-              Options.Focusing = False
-              Width = 50
-              Position.BandIndex = 0
-              Position.ColIndex = 3
-              Position.RowIndex = 0
-            end
             object grOrderViewColumnQTY: TcxGridDBBandedColumn
               Caption = #1082#1086#1083'-'#1074#1086
               DataBinding.FieldName = 'QTY'
@@ -167,9 +159,8 @@ inherited frCBROrderDeskView: TfrCBROrderDeskView
         end
       end
       object cxGroupBox6: TcxGroupBox
-        AlignWithMargins = True
-        Left = 3
-        Top = 307
+        Left = 0
+        Top = 339
         Align = alBottom
         PanelStyle.Active = True
         PanelStyle.OfficeBackgroundKind = pobkStyleColor
@@ -180,49 +171,12 @@ inherited frCBROrderDeskView: TfrCBROrderDeskView
         StyleFocused.LookAndFeel.Kind = lfOffice11
         StyleHot.LookAndFeel.Kind = lfOffice11
         TabOrder = 1
-        Height = 225
-        Width = 376
-        object cxGroupBox12: TcxGroupBox
-          AlignWithMargins = True
-          Left = 296
-          Top = 0
-          Margins.Top = 0
-          Align = alRight
-          PanelStyle.Active = True
-          PanelStyle.OfficeBackgroundKind = pobkStyleColor
-          Style.BorderStyle = ebsNone
-          Style.TransparentBorder = False
-          TabOrder = 0
-          Height = 222
-          Width = 77
-          object btItemPrior: TcxButton
-            AlignWithMargins = True
-            Left = 3
-            Top = 3
-            Width = 71
-            Height = 69
-            Align = alTop
-            Caption = '<<'
-            SpeedButtonOptions.CanBeFocused = False
-            TabOrder = 0
-          end
-          object btItemNext: TcxButton
-            AlignWithMargins = True
-            Left = 3
-            Top = 78
-            Width = 71
-            Height = 69
-            Align = alTop
-            Caption = '>>'
-            SpeedButtonOptions.CanBeFocused = False
-            TabOrder = 1
-          end
-        end
+        Height = 196
+        Width = 382
         object cxGroupBox13: TcxGroupBox
           AlignWithMargins = True
           Left = 3
           Top = 3
-          Margins.Right = 6
           Align = alClient
           PanelStyle.OfficeBackgroundKind = pobkStyleColor
           Style.BorderStyle = ebsOffice11
@@ -231,38 +185,17 @@ inherited frCBROrderDeskView: TfrCBROrderDeskView
           StyleDisabled.LookAndFeel.Kind = lfOffice11
           StyleFocused.LookAndFeel.Kind = lfOffice11
           StyleHot.LookAndFeel.Kind = lfOffice11
-          TabOrder = 1
-          Height = 219
-          Width = 284
-          object cxDBMemo1: TcxDBMemo
-            AlignWithMargins = True
-            Left = 5
-            Top = 8
-            TabStop = False
-            Align = alTop
-            DataBinding.DataField = 'DISH'
-            DataBinding.DataSource = dsItems
-            ParentFont = False
-            Properties.ReadOnly = True
-            Style.Font.Charset = DEFAULT_CHARSET
-            Style.Font.Color = clWindowText
-            Style.Font.Height = -16
-            Style.Font.Name = 'MS Sans Serif'
-            Style.Font.Style = [fsBold]
-            Style.LookAndFeel.Kind = lfOffice11
-            Style.TransparentBorder = True
-            Style.IsFontAssigned = True
-            StyleDisabled.LookAndFeel.Kind = lfOffice11
-            StyleFocused.LookAndFeel.Kind = lfOffice11
-            StyleHot.LookAndFeel.Kind = lfOffice11
-            TabOrder = 0
-            Height = 46
-            Width = 274
-          end
+          TabOrder = 0
+          Height = 190
+          Width = 376
           object cxGroupBox14: TcxGroupBox
+            AlignWithMargins = True
             Left = 2
-            Top = 57
-            Align = alTop
+            Top = 45
+            Margins.Left = 0
+            Margins.Right = 0
+            Margins.Bottom = 15
+            Align = alClient
             PanelStyle.Active = True
             PanelStyle.OfficeBackgroundKind = pobkStyleColor
             Style.BorderStyle = ebsNone
@@ -271,15 +204,15 @@ inherited frCBROrderDeskView: TfrCBROrderDeskView
             StyleDisabled.LookAndFeel.Kind = lfOffice11
             StyleFocused.LookAndFeel.Kind = lfOffice11
             StyleHot.LookAndFeel.Kind = lfOffice11
-            TabOrder = 1
-            Height = 75
-            Width = 280
+            TabOrder = 0
+            Height = 63
+            Width = 372
             object btItemQtyDec: TcxButton
               AlignWithMargins = True
               Left = 3
               Top = 3
               Width = 69
-              Height = 69
+              Height = 57
               Align = alLeft
               Caption = '-1'
               SpeedButtonOptions.CanBeFocused = False
@@ -293,11 +226,10 @@ inherited frCBROrderDeskView: TfrCBROrderDeskView
             end
             object btItemQtyInc: TcxButton
               AlignWithMargins = True
-              Left = 186
+              Left = 300
               Top = 3
               Width = 69
-              Height = 69
-              Margins.Right = 25
+              Height = 57
               Align = alRight
               Caption = '+1'
               SpeedButtonOptions.CanBeFocused = False
@@ -322,7 +254,7 @@ inherited frCBROrderDeskView: TfrCBROrderDeskView
               Style.Font.Charset = DEFAULT_CHARSET
               Style.Font.Color = clWindowText
               Style.Font.Height = -19
-              Style.Font.Name = 'MS Sans Serif'
+              Style.Font.Name = 'Tahoma'
               Style.Font.Style = [fsBold]
               Style.LookAndFeel.Kind = lfOffice11
               Style.TransparentBorder = True
@@ -331,15 +263,15 @@ inherited frCBROrderDeskView: TfrCBROrderDeskView
               StyleFocused.LookAndFeel.Kind = lfOffice11
               StyleHot.LookAndFeel.Kind = lfOffice11
               Transparent = True
-              Height = 69
-              Width = 102
-              AnchorX = 129
-              AnchorY = 38
+              Height = 57
+              Width = 216
+              AnchorX = 186
+              AnchorY = 32
             end
           end
           object cxGroupBox10: TcxGroupBox
             Left = 2
-            Top = 152
+            Top = 123
             Align = alBottom
             PanelStyle.Active = True
             PanelStyle.OfficeBackgroundKind = pobkStyleColor
@@ -349,9 +281,9 @@ inherited frCBROrderDeskView: TfrCBROrderDeskView
             StyleDisabled.LookAndFeel.Kind = lfOffice11
             StyleFocused.LookAndFeel.Kind = lfOffice11
             StyleHot.LookAndFeel.Kind = lfOffice11
-            TabOrder = 2
+            TabOrder = 1
             Height = 65
-            Width = 280
+            Width = 372
             object btItemCancel: TcxButton
               AlignWithMargins = True
               Left = 3
@@ -366,7 +298,7 @@ inherited frCBROrderDeskView: TfrCBROrderDeskView
             end
             object btItemAddon: TcxButton
               AlignWithMargins = True
-              Left = 186
+              Left = 278
               Top = 3
               Width = 91
               Height = 59
@@ -377,6 +309,34 @@ inherited frCBROrderDeskView: TfrCBROrderDeskView
               Visible = False
               WordWrap = True
             end
+          end
+          object cxDBLabel6: TcxDBLabel
+            AlignWithMargins = True
+            Left = 5
+            Top = 10
+            Margins.Top = 5
+            Margins.Bottom = 5
+            Align = alTop
+            DataBinding.DataField = 'DISH'
+            DataBinding.DataSource = dsItems
+            ParentFont = False
+            Properties.Alignment.Horz = taLeftJustify
+            Properties.Alignment.Vert = taVCenter
+            Style.Font.Charset = DEFAULT_CHARSET
+            Style.Font.Color = clWindowText
+            Style.Font.Height = -19
+            Style.Font.Name = 'Tahoma'
+            Style.Font.Style = [fsBold]
+            Style.LookAndFeel.Kind = lfOffice11
+            Style.TransparentBorder = True
+            Style.IsFontAssigned = True
+            StyleDisabled.LookAndFeel.Kind = lfOffice11
+            StyleFocused.LookAndFeel.Kind = lfOffice11
+            StyleHot.LookAndFeel.Kind = lfOffice11
+            Transparent = True
+            Height = 27
+            Width = 366
+            AnchorY = 24
           end
         end
       end
@@ -512,8 +472,9 @@ inherited frCBROrderDeskView: TfrCBROrderDeskView
     end
     object pnMenu: TcxGroupBox
       AlignWithMargins = True
-      Left = 388
+      Left = 385
       Top = 3
+      Margins.Left = 0
       Align = alClient
       PanelStyle.Active = True
       PanelStyle.OfficeBackgroundKind = pobkStyleColor
@@ -521,12 +482,12 @@ inherited frCBROrderDeskView: TfrCBROrderDeskView
       Style.TransparentBorder = False
       TabOrder = 1
       Height = 535
-      Width = 710
+      Width = 713
       object grMenu: TcxGrid
         AlignWithMargins = True
         Left = 3
         Top = 3
-        Width = 367
+        Width = 370
         Height = 453
         Align = alClient
         BorderStyle = cxcbsNone
@@ -632,10 +593,10 @@ inherited frCBROrderDeskView: TfrCBROrderDeskView
         StyleHot.LookAndFeel.Kind = lfOffice11
         TabOrder = 1
         Height = 70
-        Width = 704
+        Width = 707
         object btPreCheck: TcxButton
           AlignWithMargins = True
-          Left = 373
+          Left = 225
           Top = 5
           Width = 121
           Height = 60
@@ -650,10 +611,11 @@ inherited frCBROrderDeskView: TfrCBROrderDeskView
           Font.Name = 'MS Sans Serif'
           Font.Style = [fsBold]
           ParentFont = False
+          ExplicitLeft = 376
         end
         object btKORD: TcxButton
           AlignWithMargins = True
-          Left = 246
+          Left = 98
           Top = 5
           Width = 121
           Height = 60
@@ -668,10 +630,11 @@ inherited frCBROrderDeskView: TfrCBROrderDeskView
           Font.Name = 'MS Sans Serif'
           Font.Style = [fsBold]
           ParentFont = False
+          ExplicitLeft = 249
         end
         object btMove: TcxButton
           AlignWithMargins = True
-          Left = 500
+          Left = 503
           Top = 5
           Width = 121
           Height = 60
@@ -687,10 +650,12 @@ inherited frCBROrderDeskView: TfrCBROrderDeskView
           Font.Name = 'MS Sans Serif'
           Font.Style = [fsBold]
           ParentFont = False
+          ExplicitLeft = 545
+          ExplicitTop = 3
         end
         object btClose: TcxButton
           AlignWithMargins = True
-          Left = 639
+          Left = 642
           Top = 5
           Width = 60
           Height = 60
@@ -700,10 +665,33 @@ inherited frCBROrderDeskView: TfrCBROrderDeskView
           SpeedButtonOptions.CanBeFocused = False
           TabOrder = 3
         end
+        object btPayt: TcxButton
+          AlignWithMargins = True
+          Left = 364
+          Top = 5
+          Width = 121
+          Height = 60
+          Margins.Left = 15
+          Margins.Right = 15
+          Align = alRight
+          Caption = #1054#1087#1083#1072#1090#1072
+          LookAndFeel.Kind = lfOffice11
+          SpeedButtonOptions.CanBeFocused = False
+          TabOrder = 4
+          Visible = False
+          Font.Charset = DEFAULT_CHARSET
+          Font.Color = clWindowText
+          Font.Height = -16
+          Font.Name = 'MS Sans Serif'
+          Font.Style = [fsBold]
+          ParentFont = False
+          ExplicitLeft = 545
+          ExplicitTop = 3
+        end
       end
       object grMenuGrp: TcxGrid
         AlignWithMargins = True
-        Left = 376
+        Left = 379
         Top = 3
         Width = 331
         Height = 453

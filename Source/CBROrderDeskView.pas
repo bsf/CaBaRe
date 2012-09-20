@@ -25,7 +25,6 @@ type
     grOrderViewColumnRECNO: TcxGridDBBandedColumn;
     grOrderViewColumnMARK: TcxGridDBBandedColumn;
     grOrderViewColumnDISH: TcxGridDBBandedColumn;
-    grOrderViewColumnUNT: TcxGridDBBandedColumn;
     grOrderViewColumnQTY: TcxGridDBBandedColumn;
     grOrderViewColumnPRICE: TcxGridDBBandedColumn;
     grOrderViewColumnSUMM: TcxGridDBBandedColumn;
@@ -37,11 +36,7 @@ type
     dsHead: TDataSource;
     cxStyle2: TcxStyle;
     dsItems: TDataSource;
-    cxGroupBox12: TcxGroupBox;
-    btItemPrior: TcxButton;
-    btItemNext: TcxButton;
     cxGroupBox13: TcxGroupBox;
-    cxDBMemo1: TcxDBMemo;
     cxGroupBox14: TcxGroupBox;
     btItemQtyDec: TcxButton;
     btItemQtyInc: TcxButton;
@@ -77,6 +72,8 @@ type
     btKORD: TcxButton;
     btMove: TcxButton;
     btClose: TcxButton;
+    cxDBLabel6: TcxDBLabel;
+    btPayt: TcxButton;
     procedure grMenuGrpViewCellClick(Sender: TcxCustomGridTableView;
       ACellViewInfo: TcxGridTableDataCellViewInfo; AButton: TMouseButton;
       AShift: TShiftState; var AHandled: Boolean);
@@ -164,9 +161,6 @@ procedure TfrCBROrderDeskView.OnInitialize;
 begin
   WorkItem.Commands[COMMAND_CLOSE].AddInvoker(btClose, 'OnClick');
 
-  WorkItem.Commands[COMMAND_ITEM_PRIOR].AddInvoker(btItemPrior, 'OnClick');
-  WorkItem.Commands[COMMAND_ITEM_NEXT].AddInvoker(btItemNext, 'OnClick');
-
   WorkItem.Commands[COMMAND_ITEM_QTY_INC].AddInvoker(btItemQtyInc, 'OnClick');
   WorkItem.Commands[COMMAND_ITEM_QTY_DEC].AddInvoker(btItemQtyDec, 'OnClick');
 
@@ -175,6 +169,7 @@ begin
 
   WorkItem.Commands[COMMAND_KORD].AddInvoker(btKORD, 'OnClick');
   WorkItem.Commands[COMMAND_PRECHECK].AddInvoker(btPreCheck, 'OnClick');
+    WorkItem.Commands[COMMAND_PAYT].AddInvoker(btPayt, 'OnClick');
   WorkItem.Commands[COMMAND_MOVE].AddInvoker(btMove, 'OnClick');
 end;
 

@@ -10,7 +10,8 @@ uses
   Menus, cxLabel, cxDBLabel, cxTextEdit, cxMemo, cxDBEdit, StdCtrls, cxButtons,
   cxGridLevel, cxGridCustomTableView, cxGridTableView, cxGridBandedTableView,
   cxGridDBBandedTableView, cxClasses, cxGridCustomView, cxGrid, cxMaskEdit,
-  cxDropDownEdit, cxCalc, UIClasses, CBROrderPaytPresenter;
+  cxDropDownEdit, cxCalc, UIClasses, CBROrderPaytPresenter, cxCurrencyEdit,
+  dxCore;
 
 type
   TfrCBROrderPaytView = class(TfrCustomView, ICBROrderPaytView)
@@ -44,9 +45,29 @@ type
     cxLabel3: TcxLabel;
     lbSummRet: TcxDBLabel;
     cxDBLabel2: TcxDBLabel;
-    edSummPayt: TcxCalcEdit;
+    popupCalc: TcxPopupEdit;
+    edSummPayt: TcxCurrencyEdit;
+    pnCalc: TcxGroupBox;
+    btCalc: TcxButton;
+    cxButton1: TcxButton;
+    cxButton2: TcxButton;
+    cxButton3: TcxButton;
+    cxButton4: TcxButton;
+    cxButton5: TcxButton;
+    cxButton6: TcxButton;
+    cxButton7: TcxButton;
+    cxButton8: TcxButton;
+    cxButton9: TcxButton;
+    cxButton10: TcxButton;
+    cxButton11: TcxButton;
+    cxButton12: TcxButton;
+    cxButton13: TcxButton;
+    procedure edSummPaytPropertiesChange(Sender: TObject);
+    procedure btCalcClick(Sender: TObject);
+    procedure CalcButtonClick(Sender: TObject);
     procedure edSummPaytPropertiesEditValueChanged(Sender: TObject);
   private
+    procedure doCalcButton(AButtonIndex: integer);
   protected
     //ICBROrderPaytView
     procedure LinkHeadData(ADataSet: TDataSet);
@@ -62,7 +83,43 @@ implementation
 
 {$R *.dfm}
 
+type
+  TDummyCurrencyEdit = class(TcxCurrencyEdit)
+
+  end;
 { TfrCBROrderPaytView }
+
+procedure TfrCBROrderPaytView.btCalcClick(Sender: TObject);
+begin
+  popupCalc.DroppedDown := true;
+end;
+
+procedure TfrCBROrderPaytView.CalcButtonClick(Sender: TObject);
+begin
+  doCalcButton(TComponent(Sender).Tag);
+end;
+
+procedure TfrCBROrderPaytView.doCalcButton(AButtonIndex: integer);
+const
+  BUTTON_ENTER = 12;
+  BUTTON_CHARS: array[0..11] of char =
+    ('0', '1', '2', '3', '4', '5', '6', '7', '8', '9', '.', Char(VK_BACK));
+begin
+  edSummPayt.SelStart := Length(edSummPayt.Text);
+
+  case AButtonIndex of
+    BUTTON_ENTER: popupCalc.DroppedDown := false;
+  else
+    SendKeyPress(edSummPayt, BUTTON_CHARS[AButtonIndex]);
+  end;
+
+  edSummPayt.EditValue := edSummPayt.Text;
+end;
+
+procedure TfrCBROrderPaytView.edSummPaytPropertiesChange(Sender: TObject);
+begin
+  edSummPayt.PostEditValue;
+end;
 
 procedure TfrCBROrderPaytView.edSummPaytPropertiesEditValueChanged(
   Sender: TObject);
@@ -87,6 +144,7 @@ end;
 
 procedure TfrCBROrderPaytView.OnInitialize;
 begin
+  popupCalc.Height := 0;
   WorkItem.Commands[COMMAND_CLOSE].AddInvoker(btClose, 'OnClick');
   WorkItem.Commands[COMMAND_ORDER_CLOSE].AddInvoker(btOrderClose, 'OnClick');
 end;

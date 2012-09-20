@@ -2,7 +2,7 @@ unit CBROrderDeskPresenter;
 
 interface
 uses CustomPresenter, db, EntityServiceIntf, CoreClasses, CBRConst, sysutils,
-  variants;
+  variants, ShellIntf;
 
 const
   ENT = 'CBR_ORD_DESK';
@@ -12,9 +12,6 @@ const
   COMMAND_ITEM_QTY_DEC = '{0B452758-1D53-4871-958E-E1790A9B5EC7}';
   COMMAND_ITEM_CANCEL = '{7FA180AF-7B6E-431A-AD3C-FB884BD0D5BC}';
   COMMAND_ITEM_ADDON = '{BC859346-0415-4FE4-8744-2BAB90D4B192}';
-
-  COMMAND_ITEM_PRIOR = '{ECAA2DAF-280A-4CBB-9441-C9B0DF9D1835}';
-  COMMAND_ITEM_NEXT = '{9C1AC964-59DF-462B-B451-7BBEF033D0F1}';
 
   COMMAND_KORD = '{84528DE7-D306-4011-BDD5-A511F0BAD3C5}';
   COMMAND_PRECHECK = '{35A920C6-BC75-41D2-A83E-EB0DC44F52F9}';
@@ -33,6 +30,9 @@ type
 
 
   TCBROrderDeskPresenter = class(TCustomPresenter)
+  const
+    KORDER_REPORT = 'reports.korder';
+    PRECHECK_REPORT = 'reports.precheck';
   private
     FLastItem: Variant;
     function GetEVHead: IEntityView;
@@ -41,6 +41,7 @@ type
     function GetEVMenuGrp: IEntityView;
     function GetEVMenu: IEntityView;
     function View: ICBROrderDeskView;
+    function GetCallerWI: TWorkItem;
     procedure ItemsAfterScroll(ADataSet: TDataSet);
     procedure UpdateCommandStatus;
 
@@ -51,15 +52,15 @@ type
     procedure CmdItemQtyDec(Sender: TObject);
     procedure SetItemQty(const AValue: Variant);
     procedure CmdItemCancel(Sender: TObject);
-    procedure CmdItemPrior(Sender: TObject);
-    procedure CmdItemNext(Sender: TObject);
     procedure CmdKORD(Sender: TObject);
     procedure CmdPRECHECK(Sender: TObject);
+    procedure CmdPayt(Sender: TObject);
     procedure CmdMove(Sender: TObject);
     procedure ExecActivityAndClose(const URI: string);
   protected
     function OnGetWorkItemState(const AName: string; var Done: boolean): Variant; override;
     procedure OnViewReady; override;
+    procedure OnViewClose; override;
   end;
 
 implementation
@@ -123,16 +124,6 @@ begin
   GetEVHead.Load(true);
 end;
 
-procedure TCBROrderDeskPresenter.CmdItemNext(Sender: TObject);
-begin
-  GetEVItems.DataSet.Next;
-end;
-
-procedure TCBROrderDeskPresenter.CmdItemPrior(Sender: TObject);
-begin
-  GetEVItems.DataSet.Prior;
-end;
-
 procedure TCBROrderDeskPresenter.CmdItemQtyDec(Sender: TObject);
 begin
   SetItemQty(GetEVItems.DataSet['QTY'] - 1);
@@ -144,8 +135,26 @@ begin
 end;
 
 procedure TCBROrderDeskPresenter.CmdKORD(Sender: TObject);
+var
+  KORD_ID: Variant;
+  printActivity: IActivity;
 begin
-  ExecActivityAndClose(ACTIVITY_KORDER_CREATE);
+  if GetEVItems.DataSet.IsEmpty then Exit;
+
+  KORD_ID := App.Entities.Entity['CBR_KORD'].GetOper('Create', WorkItem).
+    Execute([WorkItem.State['ID']]).FieldValues['ID'];
+
+  if VarToStr(KORD_ID) <> '' then
+  begin
+    printActivity := WorkItem.Activities[KORDER_REPORT];
+    printActivity.Params['ID'] := KORD_ID;
+    printActivity.Params['LaunchMode'] := 2;
+    printActivity.Execute(GetCallerWI);
+    CloseView(false);
+  end
+  else
+    App.UI.MessageBox.InfoMessage('Нет заказа!');
+
 end;
 
 procedure TCBROrderDeskPresenter.CmdMove(Sender: TObject);
@@ -169,26 +178,70 @@ begin
   View.LinkMenuData(GetEVMenu.DataSet);
 end;
 
-procedure TCBROrderDeskPresenter.CmdPRECHECK(Sender: TObject);
+procedure TCBROrderDeskPresenter.CmdPayt(Sender: TObject);
+var
+  KORD_ID: Variant;
+  activity: IActivity;
 begin
-  ExecActivityAndClose(ACTIVITY_ORD_PRECHECK);
+  if GetEVItems.DataSet.IsEmpty then Exit;
+
+  KORD_ID := App.Entities.Entity['CBR_KORD'].GetOper('Create', WorkItem).
+    Execute([WorkItem.State['ID']]).FieldValues['ID'];
+
+  if VarToStr(KORD_ID) <> '' then
+  begin
+    activity := WorkItem.Activities[KORDER_REPORT];
+    activity.Params['ID'] := KORD_ID;
+    activity.Params['LaunchMode'] := 2;
+    activity.Execute(WorkItem);
+  end;
+
+  App.Entities.Entity['CBR_ORD'].
+    GetOper('PreCheck', WorkItem).Execute([WorkItem.State['ID']]);
+
+  activity := WorkItem.Activities[PRECHECK_REPORT];
+  activity.Params['ID'] := WorkItem.State['ID'];
+  activity.Params['LaunchMode'] := 2;
+  activity.Execute(WorkItem);
+
+  activity := WorkItem.Activities[ACTIVITY_ORDER_PAYT];
+  activity.Params['ID'] := WorkItem.State['ID'];
+  activity.Execute(GetCallerWI);
+
+  CloseView(false);
+ 
+end;
+
+procedure TCBROrderDeskPresenter.CmdPreCheck(Sender: TObject);
+var
+  printActivity: IActivity;
+begin
+  if GetEVItems.DataSet.IsEmpty then Exit;
+
+  App.Entities.Entity['CBR_ORD'].GetOper('PreCheck', WorkItem).Execute([WorkItem.State['ID']]);
+
+  printActivity := WorkItem.Activities[PRECHECK_REPORT];
+  printActivity.Params['ID'] := WorkItem.State['ID'];
+  printActivity.Params['LaunchMode'] := 2;
+  printActivity.Execute(GetCallerWI);
+
+  CloseView(false);
+//  ExecActivityAndClose(ACTIVITY_ORD_PRECHECK);
 end;
 
 procedure TCBROrderDeskPresenter.ExecActivityAndClose(const URI: string);
 var
   callerWI: TWorkItem;
-  KOrderActivity: IActivity;
+  activity: IActivity;
 begin
 
   callerWI := WorkItem.Root.WorkItems.Find(callerURI);
   if callerWI = nil then
     callerWI := WorkItem.Parent;
 
-  KOrderActivity := WorkItem.Activities[URI];
-
-  KOrderActivity.Params['ORD_ID'] := WorkItem.State['ID'];
-
-  KOrderActivity.Execute(callerWI);
+  activity := WorkItem.Activities[URI];
+  activity.Params['ORD_ID'] := WorkItem.State['ID'];
+  activity.Execute(callerWI);
 
   CloseView(false);
 
@@ -213,6 +266,13 @@ end;
 procedure TCBROrderDeskPresenter.ItemsAfterScroll(ADataSet: TDataSet);
 begin
   UpdateCommandStatus;
+end;
+
+function TCBROrderDeskPresenter.GetCallerWI: TWorkItem;
+begin
+  Result := WorkItem.Root.WorkItems.Find(callerURI);
+  if Result = nil then
+    Result := WorkItem.Parent;
 end;
 
 function TCBROrderDeskPresenter.GetEVHead: IEntityView;
@@ -244,6 +304,19 @@ begin
   end;}
 end;
 
+procedure TCBROrderDeskPresenter.OnViewClose;
+begin
+  if (ViewInfo.ActivityClass = ACTIVITY_ORDER_NEW) and
+    GetEVItems.DataSet.IsEmpty then
+    try
+      App.Entities.Entity['CBR_ORD'].GetOper('Delete', WorkItem).
+        Execute([WorkItem.State['ID']]);
+    except
+      on E: Exception do
+        App.UI.MessageBox.ErrorMessage(E.Message);
+    end;
+end;
+
 procedure TCBROrderDeskPresenter.OnViewReady;
 begin
   ViewTitle := 'Заказ';
@@ -259,7 +332,7 @@ begin
   GetEVHead.Load([WorkItem.State['ID']]);
 
   GetEVItems.ImmediateSave := true;
-  GetEVItems.Load([null, WorkItem.State['ID']]);
+  GetEVItems.Load([WorkItem.State['ID']]);
   GetEVItems.DataSet.AfterScroll := ItemsAfterScroll;
 
 
@@ -276,11 +349,10 @@ begin
   WorkItem.Commands[COMMAND_ITEM_CANCEL].SetHandler(CmdItemCancel);
   WorkItem.Commands[COMMAND_ITEM_ADDON].SetHandler(CmdItemAddon);
 
-  WorkItem.Commands[COMMAND_ITEM_PRIOR].SetHandler(CmdItemPrior);
-  WorkItem.Commands[COMMAND_ITEM_NEXT].SetHandler(CmdItemNext);
-
   WorkItem.Commands[COMMAND_KORD].SetHandler(CmdKORD);
   WorkItem.Commands[COMMAND_PRECHECK].SetHandler(CmdPRECHECK);
+  WorkItem.Commands[COMMAND_PAYT].SetHandler(CmdPayt);
+
   WorkItem.Commands[COMMAND_MOVE].SetHandler(CmdMove);
   WorkItem.Commands[COMMAND_MOVE].Status := csUnavailable;
   UpdateCommandStatus;
@@ -307,6 +379,10 @@ end;
 
 procedure TCBROrderDeskPresenter.UpdateCommandStatus;
 begin
+  WorkItem.Commands[COMMAND_KORD].Status := csDisabled;
+  WorkItem.Commands[COMMAND_PRECHECK].Status := csDisabled;
+  WorkItem.Commands[COMMAND_PAYT].Status := csDisabled;
+
   WorkItem.Commands[COMMAND_ITEM_QTY_INC].Status := csDisabled;
   WorkItem.Commands[COMMAND_ITEM_QTY_DEC].Status := csDisabled;
   WorkItem.Commands[COMMAND_ITEM_CANCEL].Status := csDisabled;
@@ -324,6 +400,11 @@ begin
     if (GetEVItems.DataSet['FKORD'] = 0) and
        (GetEVItems.DataSet['ID'] = FLastItem) then
       WorkItem.Commands[COMMAND_ITEM_ADDON].Status := csEnabled;
+
+    WorkItem.Commands[COMMAND_KORD].Status := csEnabled;
+    WorkItem.Commands[COMMAND_PRECHECK].Status := csEnabled;
+    WorkItem.Commands[COMMAND_PAYT].Status := csEnabled;
+
   end;
 end;
 

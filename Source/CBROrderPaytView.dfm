@@ -239,7 +239,7 @@ inherited frCBROrderPaytView: TfrCBROrderPaytView
             Left = 255
             Top = 0
             Align = alRight
-            DataBinding.DataField = 'STATE'
+            DataBinding.DataField = 'IDAT'
             DataBinding.DataSource = dsHead
             Properties.Alignment.Horz = taRightJustify
             Properties.Alignment.Vert = taVCenter

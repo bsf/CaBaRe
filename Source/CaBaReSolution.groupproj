@@ -6,10 +6,10 @@
 			<Projects Include="..\External\Boosterfw\Packages\bfwCore.dproj">
 				<Dependencies/>
 			</Projects>
-			<Projects Include="..\External\Boosterfw\Packages\bfwUI.dproj">
+			<Projects Include="..\External\Boosterfw\Packages\bfwInterfaces.dproj">
 				<Dependencies/>
 			</Projects>
-			<Projects Include="..\External\Boosterfw\Packages\bfwInterfaces.dproj">
+			<Projects Include="..\External\Boosterfw\Packages\bfwUI.dproj">
 				<Dependencies/>
 			</Projects>
 			<Projects Include="..\External\Boosterfw\Packages\bfwShell.dproj">
@@ -47,15 +47,6 @@
 		<Target Name="bfwCore:Make">
 			<MSBuild Projects="..\External\Boosterfw\Packages\bfwCore.dproj" Targets="Make"/>
 		</Target>
-		<Target Name="bfwUI">
-			<MSBuild Projects="..\External\Boosterfw\Packages\bfwUI.dproj"/>
-		</Target>
-		<Target Name="bfwUI:Clean">
-			<MSBuild Projects="..\External\Boosterfw\Packages\bfwUI.dproj" Targets="Clean"/>
-		</Target>
-		<Target Name="bfwUI:Make">
-			<MSBuild Projects="..\External\Boosterfw\Packages\bfwUI.dproj" Targets="Make"/>
-		</Target>
 		<Target Name="bfwInterfaces">
 			<MSBuild Projects="..\External\Boosterfw\Packages\bfwInterfaces.dproj"/>
 		</Target>
@@ -64,6 +55,15 @@
 		</Target>
 		<Target Name="bfwInterfaces:Make">
 			<MSBuild Projects="..\External\Boosterfw\Packages\bfwInterfaces.dproj" Targets="Make"/>
+		</Target>
+		<Target Name="bfwUI">
+			<MSBuild Projects="..\External\Boosterfw\Packages\bfwUI.dproj"/>
+		</Target>
+		<Target Name="bfwUI:Clean">
+			<MSBuild Projects="..\External\Boosterfw\Packages\bfwUI.dproj" Targets="Clean"/>
+		</Target>
+		<Target Name="bfwUI:Make">
+			<MSBuild Projects="..\External\Boosterfw\Packages\bfwUI.dproj" Targets="Make"/>
 		</Target>
 		<Target Name="bfwShell">
 			<MSBuild Projects="..\External\Boosterfw\Packages\bfwShell.dproj"/>
@@ -120,13 +120,13 @@
 			<MSBuild Projects="..\External\Boosterfw\Packages\Modules\bfwReportingModule.dproj" Targets="Make"/>
 		</Target>
 		<Target Name="Build">
-			<CallTarget Targets="bfwCore;bfwUI;bfwInterfaces;bfwShell;bfwEntityUIModule;CaBaRe;CaBaReModule;bfwShellLayout;bfwReportingModule"/>
+			<CallTarget Targets="bfwCore;bfwInterfaces;bfwUI;bfwShell;bfwEntityUIModule;CaBaRe;CaBaReModule;bfwShellLayout;bfwReportingModule"/>
 		</Target>
 		<Target Name="Clean">
-			<CallTarget Targets="bfwCore:Clean;bfwUI:Clean;bfwInterfaces:Clean;bfwShell:Clean;bfwEntityUIModule:Clean;CaBaRe:Clean;CaBaReModule:Clean;bfwShellLayout:Clean;bfwReportingModule:Clean"/>
+			<CallTarget Targets="bfwCore:Clean;bfwInterfaces:Clean;bfwUI:Clean;bfwShell:Clean;bfwEntityUIModule:Clean;CaBaRe:Clean;CaBaReModule:Clean;bfwShellLayout:Clean;bfwReportingModule:Clean"/>
 		</Target>
 		<Target Name="Make">
-			<CallTarget Targets="bfwCore:Make;bfwUI:Make;bfwInterfaces:Make;bfwShell:Make;bfwEntityUIModule:Make;CaBaRe:Make;CaBaReModule:Make;bfwShellLayout:Make;bfwReportingModule:Make"/>
+			<CallTarget Targets="bfwCore:Make;bfwInterfaces:Make;bfwUI:Make;bfwShell:Make;bfwEntityUIModule:Make;CaBaRe:Make;CaBaReModule:Make;bfwShellLayout:Make;bfwReportingModule:Make"/>
 		</Target>
 		<Import Condition="Exists('$(BDS)\Bin\CodeGear.Group.Targets')" Project="$(BDS)\Bin\CodeGear.Group.Targets"/>
 	</Project>

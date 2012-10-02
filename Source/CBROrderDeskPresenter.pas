@@ -44,7 +44,7 @@ type
     function GetCallerWI: TWorkItem;
     procedure ItemsAfterScroll(ADataSet: TDataSet);
     procedure UpdateCommandStatus;
-
+    function KOrderMakeAndPrint: boolean;
     procedure CmdOpenMenu(Sender: TObject);
     procedure CmdItemAddon(Sender: TObject);
     procedure CmdItemAdd(Sender: TObject);
@@ -141,6 +141,11 @@ var
 begin
   if GetEVItems.DataSet.IsEmpty then Exit;
 
+  if KOrderMakeAndPrint then
+    CloseView(false)
+  else
+    App.UI.MessageBox.InfoMessage('Нет заказа!');
+{
   KORD_ID := App.Entities.Entity['CBR_KORD'].GetOper('Create', WorkItem).
     Execute([WorkItem.State['ID']]).FieldValues['ID'];
 
@@ -154,7 +159,7 @@ begin
   end
   else
     App.UI.MessageBox.InfoMessage('Нет заказа!');
-
+}
 end;
 
 procedure TCBROrderDeskPresenter.CmdMove(Sender: TObject);
@@ -185,7 +190,7 @@ var
 begin
   if GetEVItems.DataSet.IsEmpty then Exit;
 
-  KORD_ID := App.Entities.Entity['CBR_KORD'].GetOper('Create', WorkItem).
+{  KORD_ID := App.Entities.Entity['CBR_KORD'].GetOper('Create', WorkItem).
     Execute([WorkItem.State['ID']]).FieldValues['ID'];
 
   if VarToStr(KORD_ID) <> '' then
@@ -195,6 +200,8 @@ begin
     activity.Params['LaunchMode'] := 2;
     activity.Execute(WorkItem);
   end;
+}
+  KOrderMakeAndPrint;
 
   App.Entities.Entity['CBR_ORD'].
     GetOper('PreCheck', WorkItem).Execute([WorkItem.State['ID']]);
@@ -209,7 +216,7 @@ begin
   activity.Execute(GetCallerWI);
 
   CloseView(false);
- 
+
 end;
 
 procedure TCBROrderDeskPresenter.CmdPreCheck(Sender: TObject);
@@ -266,6 +273,26 @@ end;
 procedure TCBROrderDeskPresenter.ItemsAfterScroll(ADataSet: TDataSet);
 begin
   UpdateCommandStatus;
+end;
+
+function TCBROrderDeskPresenter.KOrderMakeAndPrint: boolean;
+var
+  activity: IActivity;
+  ds: TDataSet;
+begin
+  ds := App.Entities.Entity['CBR_KORD'].GetOper('Create', WorkItem).
+    Execute([WorkItem.State['ID']]);
+
+  Result := not ds.IsEmpty;
+  while not ds.Eof do
+  begin
+    activity := WorkItem.Activities[KORDER_REPORT];
+    activity.Params['ID'] := ds['ID'];
+    activity.Params['PRINTER'] := ds['PRINTER'];
+    activity.Params['LaunchMode'] := 2;
+    activity.Execute(WorkItem);
+    ds.Next;
+  end;
 end;
 
 function TCBROrderDeskPresenter.GetCallerWI: TWorkItem;

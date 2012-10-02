@@ -280,7 +280,10 @@ var
   activity: IActivity;
   ds: TDataSet;
 begin
-  ds := App.Entities.Entity['CBR_KORD'].GetOper('Create', WorkItem).
+  App.Entities.Entity['CBR_KORD'].GetOper('Create', WorkItem).
+    Execute([WorkItem.State['ID']]);
+
+  ds := App.Entities.Entity['CBR_KORD'].GetOper('NotPrinted', WorkItem).
     Execute([WorkItem.State['ID']]);
 
   Result := not ds.IsEmpty;

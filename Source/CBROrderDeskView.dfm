@@ -594,14 +594,14 @@ inherited frCBROrderDeskView: TfrCBROrderDeskView
         TabOrder = 1
         Height = 70
         Width = 707
-        object btPreCheck: TcxButton
+        object btKORD: TcxButton
           AlignWithMargins = True
           Left = 225
           Top = 5
           Width = 121
           Height = 60
           Align = alRight
-          Caption = #1055#1088#1077#1095#1077#1082
+          Caption = #1041#1077#1075#1091#1085#1086#1082
           LookAndFeel.Kind = lfOffice11
           SpeedButtonOptions.CanBeFocused = False
           TabOrder = 0
@@ -611,26 +611,7 @@ inherited frCBROrderDeskView: TfrCBROrderDeskView
           Font.Name = 'MS Sans Serif'
           Font.Style = [fsBold]
           ParentFont = False
-          ExplicitLeft = 376
-        end
-        object btKORD: TcxButton
-          AlignWithMargins = True
-          Left = 98
-          Top = 5
-          Width = 121
-          Height = 60
-          Align = alRight
-          Caption = #1041#1077#1075#1091#1085#1086#1082
-          LookAndFeel.Kind = lfOffice11
-          SpeedButtonOptions.CanBeFocused = False
-          TabOrder = 1
-          Font.Charset = DEFAULT_CHARSET
-          Font.Color = clWindowText
-          Font.Height = -16
-          Font.Name = 'MS Sans Serif'
-          Font.Style = [fsBold]
-          ParentFont = False
-          ExplicitLeft = 249
+          ExplicitLeft = 98
         end
         object btMove: TcxButton
           AlignWithMargins = True
@@ -642,7 +623,7 @@ inherited frCBROrderDeskView: TfrCBROrderDeskView
           Caption = #1055#1077#1088#1077#1073#1088#1086#1089#1082#1072
           LookAndFeel.Kind = lfOffice11
           SpeedButtonOptions.CanBeFocused = False
-          TabOrder = 2
+          TabOrder = 1
           Visible = False
           Font.Charset = DEFAULT_CHARSET
           Font.Color = clWindowText
@@ -650,8 +631,6 @@ inherited frCBROrderDeskView: TfrCBROrderDeskView
           Font.Name = 'MS Sans Serif'
           Font.Style = [fsBold]
           ParentFont = False
-          ExplicitLeft = 545
-          ExplicitTop = 3
         end
         object btClose: TcxButton
           AlignWithMargins = True
@@ -663,7 +642,7 @@ inherited frCBROrderDeskView: TfrCBROrderDeskView
           Align = alRight
           Caption = #1047#1072#1082#1088#1099#1090#1100
           SpeedButtonOptions.CanBeFocused = False
-          TabOrder = 3
+          TabOrder = 2
         end
         object btPayt: TcxButton
           AlignWithMargins = True
@@ -677,7 +656,7 @@ inherited frCBROrderDeskView: TfrCBROrderDeskView
           Caption = #1054#1087#1083#1072#1090#1072
           LookAndFeel.Kind = lfOffice11
           SpeedButtonOptions.CanBeFocused = False
-          TabOrder = 4
+          TabOrder = 3
           Visible = False
           Font.Charset = DEFAULT_CHARSET
           Font.Color = clWindowText
@@ -685,8 +664,6 @@ inherited frCBROrderDeskView: TfrCBROrderDeskView
           Font.Name = 'MS Sans Serif'
           Font.Style = [fsBold]
           ParentFont = False
-          ExplicitLeft = 545
-          ExplicitTop = 3
         end
       end
       object grMenuGrp: TcxGrid

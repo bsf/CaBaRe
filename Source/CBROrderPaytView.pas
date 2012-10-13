@@ -62,6 +62,7 @@ type
     cxButton11: TcxButton;
     cxButton12: TcxButton;
     cxButton13: TcxButton;
+    btPrecheck: TcxButton;
     procedure edSummPaytPropertiesChange(Sender: TObject);
     procedure btCalcClick(Sender: TObject);
     procedure CalcButtonClick(Sender: TObject);
@@ -147,6 +148,7 @@ begin
   popupCalc.Height := 0;
   WorkItem.Commands[COMMAND_CLOSE].AddInvoker(btClose, 'OnClick');
   WorkItem.Commands[COMMAND_ORDER_CLOSE].AddInvoker(btOrderClose, 'OnClick');
+  WorkItem.Commands[COMMAND_PRECHECK].AddInvoker(btPrecheck, 'OnClick');
 end;
 
 end.

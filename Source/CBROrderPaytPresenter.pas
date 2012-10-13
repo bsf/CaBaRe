@@ -7,6 +7,7 @@ uses CustomPresenter, db, EntityServiceIntf, CoreClasses, CBRConst, sysutils,
 const
   ENT = 'CBR_ORD_DESK';
   COMMAND_ORDER_CLOSE = '{D51BCA3E-FFF8-46A9-99B3-7F08456C3A2A}';
+  COMMAND_PRECHECK = '{DD4685CD-482C-4E37-A60E-49DB8A756AC2}';
   COMMAND_PAYT_CHANGED = '{64031CB0-DBC0-489A-980D-34B94B1B3087}';
 
 type
@@ -19,11 +20,14 @@ type
 
 
   TCBROrderPaytPresenter = class(TCustomPresenter)
+  const
+     PRECHECK_REPORT = 'reports.precheck';
   private
     function GetEVHead: IEntityView;
     function GetEVItems: IEntityView;
     function View: ICBROrderPaytView;
     procedure CmdOrderClose(Sender: TObject);
+    procedure CmdPrecheck(Sender: TObject);
     procedure CmdPaytChanged(Sender: TObject);
   protected
     function OnGetWorkItemState(const AName: string; var Done: boolean): Variant; override;
@@ -92,6 +96,16 @@ begin
      WorkItem.Commands[COMMAND_ORDER_CLOSE].Status := csEnabled;
 end;
 
+procedure TCBROrderPaytPresenter.CmdPrecheck(Sender: TObject);
+var
+  activity: IActivity;
+begin
+  activity := WorkItem.Activities[PRECHECK_REPORT];
+  activity.Params['ID'] := WorkItem.State['ID'];
+  activity.Params['LaunchMode'] := 2;
+  activity.Execute(WorkItem);
+end;
+
 function TCBROrderPaytPresenter.GetEVHead: IEntityView;
 begin
   Result := (WorkItem.Services[IEntityService] as IEntityService).
@@ -125,6 +139,7 @@ begin
   WorkItem.Commands[COMMAND_ORDER_CLOSE].Status := csDisabled;
   WorkItem.Commands[COMMAND_ORDER_CLOSE].SetHandler(CmdOrderClose);
   WorkItem.Commands[COMMAND_PAYT_CHANGED].SetHandler(CmdPaytChanged);
+  WorkItem.Commands[COMMAND_PRECHECK].SetHandler(CmdPrecheck);
 end;
 
 function TCBROrderPaytPresenter.View: ICBROrderPaytView;

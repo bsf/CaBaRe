@@ -343,7 +343,7 @@ inherited frCBROrderPaytView: TfrCBROrderPaytView
       object btOrderClose: TcxButton
         AlignWithMargins = True
         Left = 16
-        Top = 261
+        Top = 349
         Width = 289
         Height = 60
         Caption = #1047#1072#1082#1088#1099#1090#1100' '#1086#1073#1089#1083#1091#1078#1080#1074#1072#1085#1080#1077
@@ -682,7 +682,7 @@ inherited frCBROrderPaytView: TfrCBROrderPaytView
           Width = 60
           Height = 127
           Margins.Left = 15
-          Caption = '='
+          Caption = 'OK'
           SpeedButtonOptions.CanBeFocused = False
           TabOrder = 10
           Font.Charset = DEFAULT_CHARSET
@@ -873,6 +873,23 @@ inherited frCBROrderPaytView: TfrCBROrderPaytView
         SpeedButtonOptions.CanBeFocused = False
         TabOrder = 10
         OnClick = btCalcClick
+      end
+      object btPrecheck: TcxButton
+        AlignWithMargins = True
+        Left = 16
+        Top = 269
+        Width = 289
+        Height = 60
+        Caption = #1055#1088#1077#1095#1077#1082
+        LookAndFeel.Kind = lfOffice11
+        SpeedButtonOptions.CanBeFocused = False
+        TabOrder = 11
+        Font.Charset = DEFAULT_CHARSET
+        Font.Color = clWindowText
+        Font.Height = -16
+        Font.Name = 'MS Sans Serif'
+        Font.Style = [fsBold]
+        ParentFont = False
       end
     end
   end

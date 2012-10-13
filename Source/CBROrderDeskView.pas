@@ -68,7 +68,6 @@ type
     cxGridDBCardViewRow1: TcxGridDBCardViewRow;
     cxGridDBCardViewRow2: TcxGridDBCardViewRow;
     cxGridLevel3: TcxGridLevel;
-    btPreCheck: TcxButton;
     btKORD: TcxButton;
     btMove: TcxButton;
     btClose: TcxButton;
@@ -168,8 +167,7 @@ begin
   WorkItem.Commands[COMMAND_ITEM_ADDON].AddInvoker(btItemAddon, 'OnClick');
 
   WorkItem.Commands[COMMAND_KORD].AddInvoker(btKORD, 'OnClick');
-  WorkItem.Commands[COMMAND_PRECHECK].AddInvoker(btPreCheck, 'OnClick');
-    WorkItem.Commands[COMMAND_PAYT].AddInvoker(btPayt, 'OnClick');
+  WorkItem.Commands[COMMAND_PAYT].AddInvoker(btPayt, 'OnClick');
   WorkItem.Commands[COMMAND_MOVE].AddInvoker(btMove, 'OnClick');
 end;
 
